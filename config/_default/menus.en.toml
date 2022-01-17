@@ -1,0 +1,17 @@
+[[main]]
+  identifier = "Docs"
+  name = "Documentation"
+  url = "documentation"
+  weight = 1
+
+[[main]]
+  identifier = "Releases"
+  name = "Releases"
+  url = "releases"
+  weight = 2
+
+# [[main]]
+#   identifier = "Blog"
+#   name = "Blog"
+#   url = "blog"
+#   weight = 3

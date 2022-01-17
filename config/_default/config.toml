@@ -1,0 +1,48 @@
+baseURL = "https://clusternet.io" # The URL of your site.
+title = "Clusternet Homepage" # Title of your site
+theme = "zdoc" # Name of Zzo theme folder in `themes/`.
+
+defaultContentLanguage = "en" # Default language to use (if you setup multilingual)
+defaultContentLanguageInSubdir = false # baseURL/en/, baseURL/kr/ ...
+hasCJKLanguage = false # Set `true` for Chinese/Japanese/Korean languages.
+
+summaryLength = 70 # The length of a post description on a list page.
+
+copyright = "Copyright 2021 The Clusternet Authors & ©THL A29 Limited, a Tencent company. All Rights Reserved" # copyright symbol: $copy; current year: {year}
+timeout = 10000
+enableEmoji = true
+paginate = 15 # Number of items per page in paginated lists.
+rssLimit = 100
+
+googleAnalytics = ""
+
+disableKinds = ["taxonomyTerm"]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      hardWraps = true
+      unsafe = true
+      xHTML = true
+  [markup.highlight]
+    codeFences = true
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = false
+  [markup.tableOfContents]
+    endLevel = 4
+    ordered = false
+    startLevel = 2
+
+[outputs]
+  home = ["HTML", "RSS", "SearchIndex"]
+
+[outputFormats]
+  [outputFormats.SearchIndex]
+    mediaType = "application/json"
+    baseName = "index"
+    isPlainText = true
+    notAlternative = true
+
+[taxonomies]
+  tag = "tags"
