@@ -15,7 +15,7 @@ landing:
   textColor:
   spaceBetweenTitleText: 25
   buttons:
-    - link: docs
+    - link: documentation
       text: Learn More
       color: primary
       icon: icons/document-white.png
