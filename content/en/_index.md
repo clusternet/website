@@ -32,6 +32,8 @@ footer:
           link: /documentation/
         - title: Releases
           link: /releases/
+        - title: Proposals
+          link: /proposals/
         # - title: Blog
         #  link: https://gohugo.io/
     - title: Resources
