@@ -5,10 +5,16 @@
   weight = 1
 
 [[main]]
+  identifier = "Proposals"
+  name = "Proposals"
+  url = "proposals"
+  weight = 2
+
+[[main]]
   identifier = "Releases"
   name = "Releases"
   url = "releases"
-  weight = 2
+  weight = 3
 
 # [[main]]
 #   identifier = "Blog"
