@@ -1,0 +1,62 @@
++++
+title = "Clusternet"
+linkTitle = "Clusternet"
+
++++
+
+{{< blocks/cover title="欢迎来到 Clusternet 社区!" image_anchor="top" height="max" color="orange" >}}
+<div class="mx-auto">
+    <a class="btn btn-lg btn-primary mr-3 mb-4" href="{{< relref "/docs" >}}">
+    了解更多 <i class="fas fa-arrow-alt-circle-right ml-2"></i>
+    </a>
+    <a class="btn btn-lg btn-secondary mr-3 mb-4" href="https://github.com/clusternet/clusternet">
+        Github 项目 <i class="fab fa-github ml-2 "></i>
+    </a>
+    <p class="lead mt-5"></p>
+
+    {{< blocks/link-down color="info" >}}
+</div>
+{{< /blocks/cover >}}
+
+{{% blocks/lead color="orange" %}}
+An open-source project that helps users manage multiple Kubernetes clusters as easily as 'visiting the Internet' (thus the name 'Clusternet').
+
+It is a general-purpose system for controlling Kubernetes clusters across different environments as if they were running locally.
+{{% /blocks/lead %}}
+
+{{< blocks/section color="300" >}}
+
+
+{{% blocks/feature icon="fab fa-github" title="Contributions Welcome!" url="https://github.com/clusternet/clusternet" %}}
+New users are always welcome! Please feel free to submit a [Pull Request](https://github.com/clusternet/clusternet/pulls) on **GitHub**.
+{{% /blocks/feature %}}
+
+
+{{% blocks/feature icon="fa-solid fa-cubes" title="Multi-cluster Management" url="/docs/introduction/" %}}
+Manage multiple Kubernetes clusters (running on public cloud, private cloud, hybrid cloud, or at the edge) from a single management cluster.
+{{% /blocks/feature %}}
+
+
+{{% blocks/feature icon="fa-solid fa-shapes" title="Application Management" url="/docs/tutorials/deploy-to-multiple-clusters/" %}}
+Deploy [Helm Charts](https://helm.sh/docs/topics/charts/), all Kubernetes built-in resources (like `Deployments`) and
+[CRDs](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#create-a-customresourcedefinition)
+to managed clusters with **two-tier** application configuration for cluster-specific values.
+{{% /blocks/feature %}}
+
+
+{{% blocks/feature icon="fa-solid fa-puzzle-piece" title="Kubernetes Native" url="/docs/introduction/" %}}
+**Out-of-the-box add-on** to empower standard Kubernetes clusters.
+{{% /blocks/feature %}}
+
+
+{{% blocks/feature icon="fa-solid fa-shield-alt" title="RBAC Support" url="/docs/tutorials/visit-child-clusters-with-rbac/" %}}
+Support accessing all managed clusters with RBAC.
+{{% /blocks/feature %}}
+
+
+{{% blocks/feature icon="fa-solid fa-terminal" title="CLI Support" url="/docs/kubectl-clusternet/" %}}
+Command line interface installable via [Krew](https://krew.sigs.k8s.io/) with consistent experiences with `kubectl`.
+{{% /blocks/feature %}}
+
+
+{{< /blocks/section >}}
