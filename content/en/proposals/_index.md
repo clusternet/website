@@ -3,6 +3,8 @@ title: "Proposals"
 description: "Clusternet Proposals"
 date: 2022-06-17
 draft: false
+menu:
+    main: {weight: 30}
 ---
 
 # Proposals
