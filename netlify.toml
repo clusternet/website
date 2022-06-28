@@ -1,6 +1,6 @@
 [build]
 publish = "public"
-command = "git submodule update --init --recursive --depth 1 && make production-deploy"
+command = "make production-deploy"
 
 [build.environment]
   HUGO_VERSION = "0.82.1"
@@ -11,7 +11,7 @@ HUGO_ENV = "production"
 HUGO_ENABLEGITINFO = "true"
 
 [context.deploy-preview]
-command = "git submodule update --init --recursive --depth 1 && make deploy-preview"
+command = "make deploy-preview"
 
 [context.branch-deploy]
-command = "git submodule update --init --recursive --depth 1 && make deploy-preview"
+command = "make deploy-preview"
