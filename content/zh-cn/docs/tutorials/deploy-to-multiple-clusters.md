@@ -20,8 +20,7 @@ Clusternet支持通过一组API将应用程序从托管集群部署到多个集�
 
 ## 定义你的应用
 
-首先，，我们先看下引用示例应用的定义，在`Subscription` "app-demo" 下面定义了目标子集群
-分发到，以及要部署的资源。
+首先，我们先看下引用示例应用的定义，在`Subscription` "app-demo" 下面定义了要分发的目标子集群以及要部署的资源。
 
 ```examples/applications/subscription.yaml
 apiVersion: apps.clusternet.io/v1alpha1
@@ -30,11 +29,11 @@ metadata:
   name: app-demo
   namespace: default
 spec:
-  subscribers: # defines the clusters to be distributed to
+  subscribers: # 定义要分发到的集群
     - clusterAffinity:
         matchLabels:
-          clusters.clusternet.io/cluster-id: dc91021d-2361-4f6d-a404-7c33b9e01118 # PLEASE UPDATE THIS CLUSTER-ID TO YOURS!!!
-  feeds: # defines all the resources to be deployed with
+          clusters.clusternet.io/cluster-id: dc91021d-2361-4f6d-a404-7c33b9e01118 # 请将此 CLUSTER-ID 更新为你的!!!
+  feeds: # 定义要部署的所有资源
     - apiVersion: apps.clusternet.io/v1alpha1
       kind: HelmChart
       name: mysql
@@ -51,12 +50,12 @@ spec:
       name: my-nginx
       namespace: foo
 ```
-在应用`Subscription`前，请使用你的clusterID修改部分值。
+在应用`Subscription`前，请将修改clusterID。
  [examples/applications/subscription.yaml](https://github.com/clusternet/clusternet/blob/main/examples/applications/subscription.yaml)
 
 
 > :bulb: :bulb:
-> 如果要从私有 helm 仓库安装 helm chart，请参考[this example](https://github.com/clusternet/clusternet/blob/main/deploy/templates/helm-chart-private-repo.yaml)设置有效的 `chartPullSecret`。
+> 如果要从私有 helm 仓库安装 helm chart，请参考[这个例子](https://github.com/clusternet/clusternet/blob/main/deploy/templates/helm-chart-private-repo.yaml)设置有效的 `chartPullSecret`。
 
 ## 重新设置相关配置
 
