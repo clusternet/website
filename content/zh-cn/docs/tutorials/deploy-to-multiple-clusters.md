@@ -14,7 +14,7 @@ Clusternet支持通过一组API将应用程序从托管集群部署到多个集�
 > `Deployer`相关特性应该由`clusternet-hub`启用。
 
 - [定义你的应用](/docs/tutorials/deploy-to-multiple-clusters/#defining-your-applications)
-- [重新设置相关配置](/docs/tutorials/deploy-to-multiple-clusters/#setting-overrides)
+- [设置覆盖值](/docs/tutorials/deploy-to-multiple-clusters/#setting-overrides)
 - [应用你的应用程序](/docs/tutorials/deploy-to-multiple-clusters/#applying-your-applications)
 - [检查状态](/docs/tutorials/deploy-to-multiple-clusters/#checking-status)
 
@@ -57,14 +57,14 @@ spec:
 > :bulb: :bulb:
 > 如果要从私有 helm 仓库安装 helm chart，请参考[这个例子](https://github.com/clusternet/clusternet/blob/main/deploy/templates/helm-chart-private-repo.yaml)设置有效的 `chartPullSecret`。
 
-## 重新设置相关配置
+## 设置覆盖值
 
-`Clusternet` 还提供了***基于两阶段优先级的***覆盖策略。 你可以定义有优先级的命名空间范围的`本地化`和集群范围的`全局化`（范围从0到1000，默认为为 500），
-其中较低的数字被认为是较低的优先级。这些全局化和本地化将被应用按优先级从低到高的顺序。这意味着较低的`全局化`中的覆盖值将被那些覆盖在更高的`全局化`中。首先是全局化，然后是本地化。
+`Clusternet` 还提供了***基于两阶段优先级的***覆盖策略。 你可以定义有优先级的命名空间范围的`Localization`和集群范围的`Globalization`（范围从0到1000，默认为为 500），
+其中较低的数字被认为是较低的优先级。这些`Globalization`和`Localization`将被应用按优先级从低到高的顺序。这意味着较低的`Globalization`中的覆盖值将被那些覆盖在更高的`Globalization`中。首先是`Globalization`，然后是`Localization`。
 
 > :dizzy: :dizzy: 举例,
 >
-> 全局化 (优先级 : 100) -> 全局化 (优先级: 600) -> 本地化 (优先级: 100) -> 本地化 (优先级 500)
+> Globalization (优先级 : 100) -> Globalization (优先级: 600) -> Localization (优先级: 100) -> Localization (优先级 500)
 
 同时，支持以下覆盖策略。
 
@@ -72,13 +72,13 @@ spec:
 - 默认覆盖策略`ApplyLater`只会在下次更新时应用覆盖匹配的对象（包括更新在 `Subscription`、`HelmChart` 等）或新创建的对象。
 
 
-在应用这些本地化之前，请
+在应用这些`Localization`之前，请
 修改[examples/applications/localization.yaml](https://github.com/clusternet/clusternet/blob/main/examples/applications/localization.yaml)
 使用您的`ManagedCluster`命名空间，例如`clusternet-5l82l`。
 
 ## 应用你的应用程序
 
-安装 kubectl 插件 [kubectl-clusternet](/docs/kubectl-clusternet/) 后，您可以运行 下面的命令将此应用程序分发到子集群。
+安装 kubectl 插件 [kubectl-clusternet](/docs/kubectl-clusternet/) 后，您可以运行下面的命令将此应用程序分发到子集群。
 
 ```bash
 $ kubectl clusternet apply -f examples/applications/
