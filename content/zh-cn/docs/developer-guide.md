@@ -1,5 +1,5 @@
 ---
-title: "Developer Guide"
+title: "开发者指南"
 description: "Getting started to develop Clusternet"
 date: 2022-01-17
 draft: false

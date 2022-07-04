@@ -1,5 +1,5 @@
 ---
-title: "Command Line Tool"
+title: "命令行工具"
 date: 2022-01-17
 description: "A 'kubectl' plugin for interacting with Clusternet"
 draft: false
