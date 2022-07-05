@@ -12,9 +12,7 @@ Managing Your Clusters (including public, private, hybrid, edge, etc) as easily 
 
 ----
 
-<div align="center"><img src="https://raw.githubusercontent.com/clusternet/clusternet/main/docs/images/clusternet-in-a-nutshell.png" style="width:900px;" /></div>
-
-
+![](/images/clusternet-in-a-nutshell.png)
 
 Clusternet (**Cluster** Inter**net**) is an open source ***add-on*** that helps you manage thousands of millions of
 Kubernetes clusters as easily as visiting the Internet. No matter the clusters are running on public cloud, private
@@ -33,9 +31,44 @@ to visit a certain Managed Kubernetes cluster, or a Kubernetes service.
 Clusternet is multiple platforms supported now, including `linux/amd64`, `linux/arm64`, `linux/ppc64le`, `linux/s390x`
 , `linux/386` and `linux/arm`;
 
+## Core Features
+
+- Kubernetes Multi-Cluster Management and Governance
+    - managing Kubernetes clusters running in cloud providers, such as AWS, Google Cloud, Tencent Cloud, Alibaba Cloud,
+      etc
+    - managing on-premise Kubernetes clusters
+    - managing any [Certified Kubernetes Distributions](https://www.cncf.io/certification/software-conformance/), such
+      as [k3s](https://github.com/k3s-io/k3s)
+    - managing Kubernetes clusters running at the edge
+    - parent cluster can also register itself as child cluster to run workloads
+    - managing Kubernetes version skewed from v1.17.x to v1.22.x,
+      refering [Kubernetes Version Skew](#kubernetes-version-skew) for details
+    - visiting any managed clusters with dynamic RBAC rules
+      refering [this tutorial](./docs/tutorials/visiting-child-clusters-with-rbac.md) for details
+- Application Coordinations
+    - Cross-Cluster Scheduling
+        - cluster label selectors
+        - cluster taints & tolerations
+    - Various Resource Types
+        - Kubernetes native objects, such as `Deployment`, `StatefulSet`, etc
+        - CRD
+        - helm charts, including [OCI-based Helm charts](https://helm.sh/docs/topics/registries/)
+    - [Setting Overrides](./docs/tutorials/deploying-applications-to-multiple-clusters.md#setting-overrides)
+        - two-stage priority based override strategies
+        - easy to rollback
+        - cross-cluster canary rollout
+- CLI
+    - providing a kubectl plugin, which can be installed with `kubectl krew install clusternet`
+    - consistent user experience with `kubectl`
+    - create/update/watch/delete multi-cluster resources
+    - interacting with any child clusters the same as local cluster
+- Client-go
+    - easy to integrate via
+      a [client-go wrapper](https://github.com/clusternet/clusternet/blob/main/examples/clientgo/READEME.md)
+
 ## Architecture
 
-<div align="center"><img src="https://raw.githubusercontent.com/clusternet/clusternet/main/docs/images/clusternet-arch.png" style="width:600px;" /></div>
+![](/images/clusternet-arch.png)
 
 Clusternet is a lightweight addon that consists of three components, `clusternet-agent`, `clusternet-scheduler`
 and `clusternet-hub`.
@@ -48,7 +81,7 @@ and `clusternet-hub`.
 - setting up a websocket connection that provides full-duplex communication channels over a single TCP connection to
   parent cluster;
 
-`clusternet-scheduelr` is responsible for
+`clusternet-scheduler` is responsible for
 
 - scheduling resources/feeds to matched child clusters based on `SchedulingStrategy`;
 
@@ -61,46 +94,21 @@ and `clusternet-hub`.
 - providing Kubernstes-styled API to redirect/proxy/upgrade requests to each child cluster;
 - coordinating and deploying applications to multiple clusters from a single set of APIs;
 
-> :pushpin: :pushpin: Note:
->
-> Since `clusternet-hub` is running as an AA, please make sure that parent apiserver could visit the
-> `clusternet-hub` service.
-
-## Concepts
-
-For every Kubernetes cluster that wants to be managed, we call it **child cluster**. The cluster where child clusters
-are registerring to, we call it **parent cluster**.
-
-`clusternet-agent` runs in child cluster, while `clusternet-scheduler` and `clusternet-hub` runs in parent cluster.
-
-- `ClusterRegistrationRequest` is an object that `clusternet-agent` creates in parent cluster for child cluster
-  registration.
-- `ManagedCluster` is an object that `clusternet-hub` creates in parent cluster after
-  approving `ClusterRegistrationRequest`.
-- `HelmChart` is an object contains a [helm chart](https://helm.sh/docs/topics/charts/) configuration.
-- `Subscription` defines the resources that subscribers want to install into clusters. Various `SchedulingStrategy` are
-  supported, such as `Replication`, `Rebalancing` (implementing), etc. For every matched cluster, a corresponding `Base`
-  object will be created in its dedicated namespace.
-- `Clusternet` provides a ***two-stage priority based*** override strategy. `Localization` and `Globalization` will
-  define the overrides with priority, where lower numbers are considered lower priority. `Localization` is
-  namespace-scoped resource, while `Globalization` is cluster-scoped. Refer to
-  [Deploying Applications to Multiple Clusters](#deploying-applications-to-multiple-clusters) on how to use these.
-- `Base` objects will be rendered to `Description` objects with `Globalization` and `Localization` settings applied.
-  `Description` is the final resources to be deployed into target child clusters.
-
-<div align="center"><img src="https://raw.githubusercontent.com/clusternet/clusternet/main/docs/images/clusternet-apps-concepts.png" style="width:900px;"/></div>
+{{% alert title="Note" color="warning" %}}
+Since `clusternet-hub` is running as an AA, please make sure that parent apiserver could visit the `clusternet-hub` service.
+{{% /alert %}}
 
 ## Kubernetes Version Skew
 
 `Clusternet` is compatible with multiple Kubernetes versions. For example, you could run `clusternet-hub` with
 Kubernetes v1.20.8, while the versions of child Kubernetes clusters could range from v1.18.x to v1.22.x.
 
-| Version                  | Kubernetes v1.17.x | Kubernetes v1.18.x | Kubernetes v1.19.x | Kubernetes v1.20.x | Kubernetes v1.21.x | Kubernetes v1.22.x |
-| ------------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
-| Clusternet v0.5.0        | \*                 | \*                 | ✓                  | ✓                  | ✓                  | ✓                  |
-| Clusternet v0.6.0        | \*                 | ✓                  | ✓                  | ✓                  | ✓                  | ✓                  |
-| Clusternet v0.7.0        | \*                 | ✓                  | ✓                  | ✓                  | ✓                  | ✓                  |
-| Clusternet HEAD (main)   | \*                 | ✓                  | ✓                  | ✓                  | ✓                  | ✓                  |
+| Version                  | Kubernetes v1.17.x |  v1.18.x | v1.19.x ~ v1.22.x   |
+| ------------------------ | ------------------ | -------- |---------------------|
+| Clusternet v0.5.0        | \*                 | \*       | ✓                   |
+| Clusternet v0.6.0        | \*                 | ✓        | ✓                   |
+| Clusternet v0.7.0        | \*                 | ✓        | ✓                   |
+| Clusternet HEAD (main)   | \*                 | ✓        | ✓                   |
 
 Note:
 

@@ -1,6 +1,6 @@
 ---
-title: "Proposals"
-description: "Clusternet Proposals"
+title: "提案"
+description: "Clusternet 社区提案"
 date: 2022-06-17
 draft: false
 menu:

@@ -1,5 +1,5 @@
 ---
-title: "Contributing"
+title: "贡献"
 description: "Clusternet contributing guide"
 date: 2022-01-17
 draft: false
