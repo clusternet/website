@@ -1,29 +1,16 @@
 ---
 title: "Deploying Applications to Multiple Clusters with Static Weight Scheduling"
-description: ""
+description: "Scheduling applications of multiple replicas to several clusters by static cluster weight"
 date: 2022-04-11
 draft: false
 weight: 4
 ---
-
-Clusternet supports deploying applications to multiple clusters from a single set of APIs in a hosting cluster.
-
-{{% alert title="Note" color="primary" %}}
-Feature gate `Deployer` should be enabled by `clusternet-hub`.
-{{% /alert %}}
-
-> :pushpin: :pushpin: Note:
->
-> Feature gate `Deployer` should be enabled by `clusternet-hub`.
 
 This tutorial will walk you through how to deploy applications to multiple clusters with static weight scheduling. It is
 different from replication scheduling. When using static weight scheduling, the replicas of an application will be split
 based on cluster weights. For example, if you want to deploy a `Deployment` with 6 replicas to 2 clusters ("cluster-01"
 with weight 1, "cluster-02" with weight 2), then "cluster-01" will run such a `Deployment` with 2 replicas, "cluster-02"
 runs the other 4 replicas.
-
-- [Defining Your Applications](#defining-your-applications)
-- [Applying Your Applications](#applying-your-applications)
 
 ## Defining Your Applications
 
@@ -71,11 +58,11 @@ Before applying this `Subscription`, please
 modify [examples/static-dividing-scheduling/subscription.yaml](https://github.com/clusternet/clusternet/blob/main/examples/static-dividing-scheduling/subscription.yaml)
 with your clusterID.
 
-If you want to apply overrides per cluster, please follow [How to Set Overrides in Clusternet](setting-overrides.md).
+If you want to apply overrides per cluster, please follow [How to Set Overrides in Clusternet](/docs/tutorials/multi-cluster-apps/setting-overrides/).
 
 ## Applying Your Applications
 
-After installing kubectl plugin [kubectl-clusternet](https://github.com/clusternet/kubectl-clusternet), you could run
+After installing kubectl plugin [kubectl-clusternet](/docs/kubectl-clusternet/), you could run
 commands below to distribute this application to child clusters.
 
 ```bash

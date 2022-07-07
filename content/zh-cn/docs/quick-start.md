@@ -6,8 +6,12 @@ draft: false
 weight: 2
 ---
 
-This tutorial walks you through setting up `Clusternet` locally with 1 parent cluster and 3 child clusters by using
-[kind](https://kind.sigs.k8s.io/).
+This tutorial walks you through,
+
+- setting up `Clusternet` locally with 1 parent cluster and 3 child clusters by using
+  [kind](https://kind.sigs.k8s.io/)
+- checking child clusters registration status
+- deploying applications to multiple clusters
 
 ## Prerequisites
 
@@ -27,7 +31,7 @@ git clone https://github.com/clusternet/clusternet
 cd clusternet
 ```
 
-## Deploy and Run Clusternet:
+## Install Clusternet
 
 Run the following script,
 
@@ -64,4 +68,11 @@ clusternet-scheduler-8645f9d85b-vkw8r   1/1     Running   0          2m59s
 
 ## Checking Cluster Registration
 
-Please follow [this guide](./checking-cluster-registration.md) to check cluster registrations.
+Please follow this tutorial
+on [checking cluster registration status](/docs/tutorials/cluster-management/checking-cluster-registration/).
+
+## Deploying Applications to Child Clusters
+
+Please follow our [interactive tutorials](/docs/tutorials/multi-cluster-apps/) to deploy applications to above three
+child clusters from parent cluster. And the parent cluster can register itself as a child cluster as well, if you
+install `clusternet-agent` on it.

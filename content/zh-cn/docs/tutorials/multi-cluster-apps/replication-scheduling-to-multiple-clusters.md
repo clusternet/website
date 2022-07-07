@@ -3,6 +3,7 @@ title: "通过复制调度将应用部署到多个集群"
 date: 2022-07-04
 draft: false
 weight: 3
+description: "Scheduling applications to multiple clusters"
 ---
 
 This tutorial will walk you through how to deploy applications to multiple clusters with replication scheduling, which

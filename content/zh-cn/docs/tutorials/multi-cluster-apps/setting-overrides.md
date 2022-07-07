@@ -1,6 +1,6 @@
 ---
 title: "How to Set Overrides in Clusternet"
-description: ""
+description: "Setting priority based overrides"
 date: 2022-04-11
 draft: false
 weight: 10
@@ -12,9 +12,9 @@ considered lower priority. These Globalization(s) and Localization(s) will be ap
 higher. That means override values in lower `Globalization` will be overridden by those in higher `Globalization`.
 Globalization(s) come first and then Localization(s).
 
-> :dizzy: :dizzy: For example,
->
-> Globalization (priority: 100) -> Globalization (priority: 600) -> Localization (priority: 100) -> Localization (priority 500)
+{{% alert title="For example" color="primary" %}}
+Globalization (priority: 100) -> Globalization (priority: 600) -> Localization (priority: 100) -> Localization (priority 500)
+{{% /alert %}}
 
 Meanwhile, below override policies are supported,
 
@@ -24,7 +24,7 @@ Meanwhile, below override policies are supported,
 
 Here you can refer below samples to learn more,
 
-- [Localization Sample](../../examples/applications/localization.yaml)
-- [Globalization Sample](../../examples/applications/globalization.yaml)
+- [Localization Sample](https://github.com/clusternet/clusternet/blob/main/examples/applications/localization.yaml)
+- [Globalization Sample](https://github.com/clusternet/clusternet/blob/main/examples/applications/globalization.yaml)
 
 Please remember to modify the namespace to your `ManagedCluster` namespace, such as `clusternet-5l82l`.
