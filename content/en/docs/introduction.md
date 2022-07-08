@@ -40,20 +40,21 @@ Clusternet is multiple platforms supported now, including `linux/amd64`, `linux/
     - managing any [Certified Kubernetes Distributions](https://www.cncf.io/certification/software-conformance/), such
       as [k3s](https://github.com/k3s-io/k3s)
     - managing Kubernetes clusters running at the edge
-    - parent cluster can also register itself as child cluster to run workloads
-    - managing Kubernetes version skewed from v1.17.x to v1.22.x,
-      refering [Kubernetes Version Skew](#kubernetes-version-skew) for details
-    - visiting any managed clusters with dynamic RBAC rules
-      refering [this tutorial](./docs/tutorials/visiting-child-clusters-with-rbac.md) for details
+    - parent cluster can also register itself as a child cluster to run workloads
+    - managing Kubernetes version skewed from v1.17.x to v1.22.x (Learn more
+      about [Kubernetes Version Skew](/docs/introduction/#kubernetes-version-skew))
+    - visiting any managed clusters with dynamic RBAC rules (Learn more
+      from [this tuorial](/docs/tutorials/cluster-management/visiting-child-clusters-with-rbac/))
 - Application Coordinations
     - Cross-Cluster Scheduling
-        - cluster label selectors
-        - cluster taints & tolerations
+        - replication scheduling
+        - static dividing scheduling by weight
+        - dynamic dividing scheduling by capacity
     - Various Resource Types
         - Kubernetes native objects, such as `Deployment`, `StatefulSet`, etc
         - CRD
         - helm charts, including [OCI-based Helm charts](https://helm.sh/docs/topics/registries/)
-    - [Setting Overrides](./docs/tutorials/deploying-applications-to-multiple-clusters.md#setting-overrides)
+    - [Setting Overrides](/docs/tutorials/multi-cluster-apps/setting-overrides/)
         - two-stage priority based override strategies
         - easy to rollback
         - cross-cluster canary rollout

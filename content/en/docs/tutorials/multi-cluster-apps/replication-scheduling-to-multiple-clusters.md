@@ -3,6 +3,7 @@ title: "Deploying Applications to Multiple Clusters with Replication Scheduling"
 date: 2022-04-11
 draft: false
 weight: 3
+description: "Scheduling applications to multiple clusters"
 ---
 
 This tutorial will walk you through how to deploy applications to multiple clusters with replication scheduling, which
