@@ -1,28 +1,28 @@
 ---
 title: "快速开始"
 description: "A quick start to know Clusternet"
-date: 2022-03-08
+date: 2022-07-09
 draft: false
 weight: 2
 ---
 
-This tutorial walks you through,
+本教程将引导您：
 
-- setting up `Clusternet` locally with 1 parent cluster and 3 child clusters by using
-  [kind](https://kind.sigs.k8s.io/)
-- checking child clusters registration status
-- deploying applications to multiple clusters
+- 通过[kind](https://kind.sigs.k8s.io/)在本地设置 `Clusternet `1个父集群和3个子集群。
+- 检查子集群注册状态
+- 将应用程序部署到多个集群
 
-## Prerequisites
+
+## 准备工作
 
 - [Helm](https://helm.sh/) version v3.8.0
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) version v1.23.4
 - [kind](https://kind.sigs.k8s.io/) version v0.11.1
 - [Docker](https://docs.docker.com/) version v20.10.2
 
-## Clone Clusternet
+## 项目准备
 
-Clone the repository,
+拉取项目到本地
 
 ```bash
 mkdir -p $GOPATH/src/github.com/clusternet/
@@ -31,15 +31,15 @@ git clone https://github.com/clusternet/clusternet
 cd clusternet
 ```
 
-## Install Clusternet
+## 安装 Clusternet
 
-Run the following script,
+执行下面脚本,
 
 ```bash
 hack/local-running.sh
 ```
 
-If everything goes well, you will see the messages as follows:
+如果一切顺利，您将看到如下信息提示:
 
 ```
 Local clusternet is running now.
@@ -48,8 +48,7 @@ To start using clusternet, please run:
   kubectl config get-contexts
 ```
 
-When you run `kubectl config get-contexts`, you will see 1 parent cluster and 3 child clusters and the clusternet has
-been deployed automatically.
+当你执行 `kubectl config get-contexts`命令时, 你会看到1个父集群和3个子集群并`clusternet`自动部署。
 
 ```bash
 # kubectl config get-contexts
@@ -66,13 +65,10 @@ clusternet-scheduler-8645f9d85b-fmfln   1/1     Running   0          2m59s
 clusternet-scheduler-8645f9d85b-vkw8r   1/1     Running   0          2m59s
 ```
 
-## Checking Cluster Registration
+## 检查集群注册
 
-Please follow this tutorial
-on [checking cluster registration status](/docs/tutorials/cluster-management/checking-cluster-registration/).
+请按照该教程[检查集群注册状态](/docs/tutorials/cluster-management/checking-cluster-registration/)进行检查。
 
-## Deploying Applications to Child Clusters
+## 将应用程序部署到子集群
 
-Please follow our [interactive tutorials](/docs/tutorials/multi-cluster-apps/) to deploy applications to above three
-child clusters from parent cluster. And the parent cluster can register itself as a child cluster as well, if you
-install `clusternet-agent` on it.
+请按照我们的[交互式教程](/docs/tutorials/multi-cluster-apps/)将应用程序部署到上述来自同一个父集群的三个子集群中。如果你在上面安装`clusternet-agent`，父集群也可以将自己注册为子集群，
