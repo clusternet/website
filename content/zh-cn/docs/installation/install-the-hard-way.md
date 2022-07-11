@@ -14,14 +14,14 @@ required to install `Clusternet`.
 
 You need to deploy `clusternet-agent` in child clusters, `clusternet-hub` and `clusternet-scheduler` in parent cluster.
 
-> :whale: :whale: :whale: Note:
->
-> The container images are hosted on both [ghcr.io](https://github.com/orgs/clusternet/packages) and [dockerhub](https://hub.docker.com/u/clusternet).
-> Please choose the fastest image registry to use.
+{{% alert title="Note 🐳🐳🐳" color="primary" %}}
+The container images are hosted on both [ghcr.io](https://github.com/orgs/clusternet/packages) and [dockerhub](https://hub.docker.com/u/clusternet).
+Please choose the fastest image registry to use.
+{{% /alert %}}
 
 ## Deploying `clusternet-hub` in parent cluster
 
-```console
+```bash
 kubectl apply -f deploy/hub
 ```
 
@@ -31,7 +31,7 @@ Next, you need to create a token for cluster registration, which will be used la
 - If bootstrapping authentication is supported, i.e. `--enable-bootstrap-token-auth=true` is explicitly set in the
   kube-apiserver running in parent cluster,
 
-  ```console
+  ```bash
   # this will create a bootstrap token 07401b.f395accd246ae52d
   kubectl apply -f manifests/samples/cluster_bootstrap_token.yaml
   ```
@@ -40,15 +40,15 @@ Next, you need to create a token for cluster registration, which will be used la
   , i.e. `--enable-bootstrap-token-auth=false` (which defaults to be `false`), please use serviceaccount token instead.
 
   ```bash
-  $ # this will create a serviceaccount token
-  $ kubectl apply -f manifests/samples/cluster_serviceaccount_token.yaml
-  $ kubectl get secret -n clusternet-system -o=jsonpath='{.items[?(@.metadata.annotations.kubernetes\.io/service-account\.name=="cluster-bootstrap-use")].data.token}' | base64 --decode; echo
-  HERE WILL OUTPUTS A LONG STRING. PLEASE REMEMBER THIS.
+  # this will create a serviceaccount token
+  kubectl apply -f manifests/samples/cluster_serviceaccount_token.yaml
+  kubectl get secret -n clusternet-system -o=jsonpath='{.items[?(@.metadata.annotations.kubernetes\.io/service-account\.name=="cluster-bootstrap-use")].data.token}' | base64 --decode; echo
+  # HERE WILL OUTPUTS A LONG STRING. PLEASE REMEMBER THIS.
   ```
 
 ## Deploying `clusternet-scheduler` in parent cluster
 
-```console
+```bash
 kubectl apply -f deploy/scheduler
 ```
 
@@ -82,10 +82,10 @@ Feature gate `AppPusher` works on agent side, which is introduced mainly for bel
 Upon deploying `clusternet-agent`, a secret that contains token for cluster registration should be created firstly.
 
 ```bash
-$ # create namespace clusternet-system if not created
-$ kubectl create ns clusternet-system
-$ # here we use the token created above
-$ PARENTURL=https://192.168.10.10 REGTOKEN=07401b.f395accd246ae52d envsubst < ./deploy/templates/clusternet_agent_secret.yaml | kubectl apply -f -
+# create namespace clusternet-system if not created
+kubectl create ns clusternet-system
+# here we use the token created above
+PARENTURL=https://192.168.10.10 REGTOKEN=07401b.f395accd246ae52d envsubst < ./deploy/templates/clusternet_agent_secret.yaml | kubectl apply -f -
 ```
 
 > :pushpin: :pushpin: Note:
@@ -99,8 +99,8 @@ https port (:443), please specify the port number in the URL to ensure the agent
 instance, `https://192.168.10.10:6443`.
 
 ```bash
-$ # before deploying, you could update the SyncMode if needed
-$ kubectl apply -f deploy/agent
+# before deploying, you could update the SyncMode if needed
+kubectl apply -f deploy/agent
 ```
 
 ## Checking Cluster Registration

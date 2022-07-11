@@ -18,19 +18,19 @@ please [install Krew with this guide](https://krew.sigs.k8s.io/docs/user-guide/s
 Then you can install `Clusternet` kubectl plugin with,
 
 ```bash
-$ kubectl krew update
-$ kubectl krew install clusternet
+kubectl krew update
+kubectl krew install clusternet
 # check plugin version
-$ kubectl clusternet version
+kubectl clusternet version
 ```
 
 or update existing `Clusternet` plugin to latest,
 
 ```bash
-$ kubectl krew update
-$ kubectl krew upgrade clusternet
+kubectl krew update
+kubectl krew upgrade clusternet
 # check plugin version
-$ kubectl clusternet version
+kubectl clusternet version
 ```
 
 ### Download Binary
@@ -47,8 +47,8 @@ Then copy `./kubectl-clusternet` to a directory in your executable `$PATH`.
 Clone this repo and run `make bin`
 
 ```bash
-$ git clone https://github.com/clusternet/kubectl-clusternet
-$ make bin
+git clone https://github.com/clusternet/kubectl-clusternet
+make bin
 ```
 
 Then copy `./dist/kubectl-clusternet` to a directory in your executable `$PATH`.
