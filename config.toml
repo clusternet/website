@@ -1,5 +1,6 @@
 baseURL = "https://clusternet.io/"
 title = "Clusternet Website"
+theme = "docsy"
 
 # Language settings
 contentDir = "content/en"

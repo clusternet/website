@@ -63,7 +63,7 @@ If you want to use scheme `http` to demonstrate how it works, i.e. `/apis/proxie
 you can simply ***run a local proxy in your child cluster***, for example,
 
 ```bash
-$ kubectl proxy --address='10.212.0.7' --accept-hosts='^*$'
+kubectl proxy --address='10.212.0.7' --accept-hosts='^*$'
 ```
 
 Please replace `10.212.0.7` with your real local IP address.

@@ -52,13 +52,13 @@ When you run `kubectl config get-contexts`, you will see 1 parent cluster and 3 
 been deployed automatically.
 
 ```bash
-# kubectl config get-contexts
+$ kubectl config get-contexts
 CURRENT   NAME     CLUSTER       AUTHINFO      NAMESPACE
           child1   kind-child1   kind-child1   
           child2   kind-child2   kind-child2   
           child3   kind-child3   kind-child3   
 *         parent   kind-parent   kind-parent
-# kubectl get pod -n clusternet-system 
+$ kubectl get pod -n clusternet-system
 NAME                                    READY   STATUS    RESTARTS   AGE
 clusternet-hub-7d4bf55fbd-9lv9h         1/1     Running   0          3m2s
 clusternet-scheduler-8645f9d85b-cdlr5   1/1     Running   0          2m59s

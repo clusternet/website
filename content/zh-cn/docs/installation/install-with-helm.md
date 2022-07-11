@@ -8,16 +8,20 @@ collapsible: false
 ---
 
 You need to deploy `clusternet-agent` in child clusters, `clusternet-hub` and `clusternet-scheduler` in parent cluster.
-
-:white_check_mark: You can also try to [install `Clusternet` manually](/docs/getting-started/install-the-hard-way/).
+You can also try to [install `Clusternet` manually](/docs/getting-started/install-the-hard-way/).
 
 > [Helm](https://helm.sh) must be installed to use the charts. Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 
 Once Helm is set up properly, add the repo as follows:
 
-```console
+```bash
 helm repo add clusternet https://clusternet.github.io/charts
 ```
+
+{{% alert title="Note 🐳🐳🐳" color="primary" %}}
+The container images are hosted on both [ghcr.io](https://github.com/orgs/clusternet/packages) and [dockerhub](https://hub.docker.com/u/clusternet).
+Please choose the fastest image registry to use.
+{{% /alert %}}
 
 You can then run `helm search repo clusternet` to see the charts.
 

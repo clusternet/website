@@ -26,7 +26,7 @@ Run
 
 ```bash
 # build for linux/amd64 by default
-$ make clusternet-agent clusternet-hub clusternet-scheduler
+make clusternet-agent clusternet-hub clusternet-scheduler
 ```
 
 to build binaries `clusternet-agent`, `clusternet-hub` and `clusternet-scheduler` for `linux/amd64`.
@@ -36,7 +36,7 @@ Also you could specify other platforms when building, such as,
 ```bash
 # build only clusternet-agent for linux/arm64 and darwin/amd64
 # use comma to separate multiple platforms
-$ PLATFORMS=linux/arm64,darwin/amd64 make clusternet-agent
+PLATFORMS=linux/arm64,darwin/amd64 make clusternet-agent
 # below are all the supported platforms
 # PLATFORMS=darwin/amd64,darwin/arm64,linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm
 ```
@@ -75,13 +75,13 @@ on the installation.
 ```bash
 # build for linux/amd64 by default
 # container images for clusternet-agent, clusternet-hub and clusternet-scheduler
-$ make images
+make images
 ```
 
 Also you could build container images for other platforms, such as `arm64`,
 
 ```bash
-$ PLATFORMS=linux/amd64,linux/arm64,linux/ppc64le make images
+PLATFORMS=linux/amd64,linux/arm64,linux/ppc64le make images
 # below are all the supported platforms
 # PLATFORMS=linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm
 ```

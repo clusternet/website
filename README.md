@@ -9,14 +9,14 @@ Install [Hugo (extended version)](https://gohugo.io/getting-started/installing) 
 ## Getting Started
 
 ### 1. Clone this repo and its submodules
-```console
+```bash
 git clone https://github.com/clusternet/website.git
 cd website
 make load-submodule
 ```
 
 ### 2. Serve the site locally
-```console
+```bash
 make serve
 ```
 
