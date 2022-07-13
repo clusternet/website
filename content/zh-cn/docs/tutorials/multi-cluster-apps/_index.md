@@ -1,7 +1,7 @@
 ---
-title: "Multi-Cluster Applications"
+title: "多集群应用分发"
 weight: 2
-description: "Deploying applications to multiple clusters with various scheduling strategies"
+description: "通过多种调度策略将应用分发到多集群中"
 ---
 
 Clusternet支持通过一组API将应用程序从托管集群部署到多个集群。

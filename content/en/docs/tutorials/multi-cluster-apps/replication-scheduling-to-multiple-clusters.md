@@ -2,7 +2,7 @@
 title: "Deploying Applications to Multiple Clusters with Replication Scheduling"
 date: 2022-04-11
 draft: false
-weight: 3
+weight: 1
 description: "Scheduling applications to multiple clusters"
 ---
 
@@ -17,7 +17,7 @@ First, let's see an example application. Below `Subscription` "app-demo" defines
 distributed to, and the resources to be deployed with.
 
 ```yaml
-# examples/applications/subscription.yaml
+# examples/replication-scheduling/subscription.yaml
 apiVersion: apps.clusternet.io/v1alpha1
 kind: Subscription
 metadata:
@@ -47,7 +47,7 @@ spec:
 ```
 
 Before applying this `Subscription`, please
-modify [examples/applications/subscription.yaml](https://github.com/clusternet/clusternet/blob/main/examples/applications/subscription.yaml)
+modify [examples/replication-scheduling/subscription.yaml](https://github.com/clusternet/clusternet/blob/main/examples/replication-scheduling/subscription.yaml)
 with your clusterID.
 
 {{% alert title="Note" color="primary" %}}
@@ -56,11 +56,11 @@ If you want to install a helm chart from a private helm repository, please set a
 {{% /alert %}}
 
 Clusternet also supports using [OCI-based registries](https://helm.sh/docs/topics/registries/) for Helm charts. Please
-refer [this oci-based helm chart](../../examples/oci/oci-chart-mysql.yaml).
+refer [this oci-based helm chart](https://github.com/clusternet/clusternet/blob/main/examples/oci/oci-chart-mysql.yaml).
 
 If you want to apply overrides per cluster, please follow [How to Set Overrides in Clusternet](setting-overrides.md).
 Before applying these Localization(s), please
-modify [examples/applications/localization.yaml](https://github.com/clusternet/clusternet/blob/main/examples/applications/localization.yaml)
+modify [examples/replication-scheduling/localization.yaml](https://github.com/clusternet/clusternet/blob/main/examples/replication-scheduling/localization.yaml)
 with your `ManagedCluster` namespace, such as `clusternet-5l82l`.
 
 ## Applying Your Applications
@@ -69,17 +69,20 @@ After installing kubectl plugin [kubectl-clusternet](https://github.com/clustern
 below commands to distribute this application to child clusters.
 
 ```bash
-$ kubectl clusternet apply -f examples/applications/
+$ kubectl clusternet apply -f examples/replication-scheduling/
 helmchart.apps.clusternet.io/mysql created
 namespace/foo created
 deployment.apps/my-nginx created
 service/my-nginx-svc created
 subscription.apps.clusternet.io/app-demo created
 $ # or
-$ # kubectl-clusternet apply -f examples/applications/
+$ # kubectl-clusternet apply -f examples/replication-scheduling/
 ```
 
-## Checking Status
+You can [check aggregated status](docs/tutorials/multi-cluster-apps/aggregated-status/) of feeds/resources running in
+each child clusters.
+
+## Checking Subscription Status
 
 Then you can view the resources just created,
 

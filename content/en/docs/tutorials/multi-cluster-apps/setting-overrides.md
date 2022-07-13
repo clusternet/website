@@ -24,7 +24,7 @@ Meanwhile, below override policies are supported,
 
 Here you can refer below samples to learn more,
 
-- [Localization Sample](https://github.com/clusternet/clusternet/blob/main/examples/applications/localization.yaml)
-- [Globalization Sample](https://github.com/clusternet/clusternet/blob/main/examples/applications/globalization.yaml)
+- [Localization Sample](https://github.com/clusternet/clusternet/blob/main/examples/replication-scheduling/localization.yaml)
+- [Globalization Sample](https://github.com/clusternet/clusternet/blob/main/examples/replication-scheduling/globalization.yaml)
 
 Please remember to modify the namespace to your `ManagedCluster` namespace, such as `clusternet-5l82l`.
