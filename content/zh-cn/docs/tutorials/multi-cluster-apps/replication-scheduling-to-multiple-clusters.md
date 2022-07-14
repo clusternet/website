@@ -2,8 +2,8 @@
 title: "通过复制调度将应用部署到多个集群"
 date: 2022-07-04
 draft: false
-weight: 3
-description: "Scheduling applications to multiple clusters"
+weight: 1
+description: "将应用调度到多个集群"
 ---
 
 This tutorial will walk you through how to deploy applications to multiple clusters with replication scheduling, which
@@ -16,7 +16,7 @@ then every cluster will run such a `Deployment` with 5 replicas respectively.
 首先，我们先看下引用示例应用的定义，在 `Subscription` "app-demo" 下面定义了要分发的目标子集群以及要部署的资源。
 
 ```yaml
-# examples/applications/subscription.yaml
+# examples/replication-scheduling/subscription.yaml
 apiVersion: apps.clusternet.io/v1alpha1
 kind: Subscription
 metadata:
@@ -46,29 +46,18 @@ spec:
 ```
 
 在应用`Subscription`前，请将修改clusterID。
-[examples/applications/subscription.yaml](https://github.com/clusternet/clusternet/blob/main/examples/applications/subscription.yaml)
+[examples/replication-scheduling/subscription.yaml](https://github.com/clusternet/clusternet/blob/main/examples/replication-scheduling/subscription.yaml)
 
+{{% alert title="提示" color="primary" %}}
+如果要从私有 helm 仓库安装 helm chart，请参考[这个例子](https://github.com/clusternet/clusternet/blob/main/deploy/templates/helm-chart-private-repo.yaml)设置有效的 `chartPullSecret`。
+{{% /alert %}}
 
-> :bulb: :bulb:
-> 如果要从私有 helm 仓库安装 helm chart，请参考[这个例子](https://github.com/clusternet/clusternet/blob/main/deploy/templates/helm-chart-private-repo.yaml)设置有效的 `chartPullSecret`。
+Clusternet 也支持使用在 Helm Chart 中使用[OCI标准的镜像仓库仓库](https://helm.sh/docs/topics/registries/).
+请参考[这个 OCI 类型的 Helm Chart 示例](https://github.com/clusternet/clusternet/blob/main/examples/oci/oci-chart-mysql.yaml).
 
-## 设置覆盖值
-
-`Clusternet` 还提供了***基于两阶段优先级的***覆盖策略。 你可以定义有优先级的命名空间范围的`Localization`和集群范围的`Globalization`（范围从0到1000，默认为为 500），
-其中较低的数字被认为是较低的优先级。这些`Globalization`和`Localization`将被应用按优先级从低到高的顺序。这意味着较低的`Globalization`中的覆盖值将被那些覆盖在更高的`Globalization`
-中。首先是`Globalization`，然后是`Localization`。
-
-> :dizzy: :dizzy: 举例,
->
-> Globalization (优先级 : 100) -> Globalization (优先级: 600) -> Localization (优先级: 100) -> Localization (优先级 500)
-
-同时，支持以下覆盖策略。
-
-- `ApplyNow` 将立即为匹配的对象应用覆盖，包括那些已经填充的对象。
-- 默认覆盖策略`ApplyLater`只会在下次更新时应用覆盖匹配的对象（包括更新在 `Subscription`、`HelmChart` 等）或新创建的对象。
-
+如果你想设置一些覆盖值（overrides），请参考[在 Clusternet 中如何设置 Overrides](setting-overrides.md).
 在应用这些`Localization`之前，请
-修改[examples/applications/localization.yaml](https://github.com/clusternet/clusternet/blob/main/examples/applications/localization.yaml)
+修改[examples/replication-scheduling/localization.yaml](https://github.com/clusternet/clusternet/blob/main/examples/replication-scheduling/localization.yaml)
 使用您的`ManagedCluster`命名空间，例如`clusternet-5l82l`。
 
 ## 应用你的应用程序
@@ -76,17 +65,19 @@ spec:
 安装 kubectl 插件 [kubectl-clusternet](/docs/kubectl-clusternet/) 后，您可以运行下面的命令将此应用程序分发到子集群。
 
 ```bash
-$ kubectl clusternet apply -f examples/applications/
+$ kubectl clusternet apply -f examples/replication-scheduling/
 helmchart.apps.clusternet.io/mysql created
 namespace/foo created
 deployment.apps/my-nginx created
 service/my-nginx-svc created
 subscription.apps.clusternet.io/app-demo created
 $ # or
-$ # kubectl-clusternet apply -f examples/applications/
+$ # kubectl-clusternet apply -f examples/replication-scheduling/
 ```
 
-## 检查状态
+你可以查看各个子集群中[汇聚的资源状态](docs/tutorials/multi-cluster-apps/aggregated-status/)。
+
+## 检查 Subscription 状态
 
 接下来就可以查看刚刚创建的资源了，
 

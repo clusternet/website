@@ -3,7 +3,7 @@ title: "Deploying Applications to Multiple Clusters with Static Weight Schedulin
 description: "Scheduling applications of multiple replicas to several clusters by static cluster weight"
 date: 2022-04-11
 draft: false
-weight: 4
+weight: 2
 ---
 
 This tutorial will walk you through how to deploy applications to multiple clusters with static weight scheduling. It is
@@ -54,6 +54,21 @@ spec:
 The `Deployment` bar/my-nginx above will run in two clusters with a total of 6 replicas, while 2 replicas run in cluster
 with ID `dc91021d-2361-4f6d-a404-7c33b9e01118`, 4 replicas in cluster with ID `5f9da921-0437-4fea-a89d-42aa1ede9b25`.
 
+You can get the scheduling result by checking the status of Subscription `static-dividing-scheduling-demo`.
+
+```yaml
+bindingClusters:
+  - clusternet-v7wzq/clusternet-cluster-bb2xp
+  - clusternet-wlf5b/clusternet-cluster-skxd4
+  desiredReleases: 6
+  replicas:
+    apps/v1/Deployment/qux/my-nginx:
+    - 2
+    - 4
+    v1/Namespace/qux: []
+    v1/Service/qux/my-nginx-svc: []
+```
+
 Before applying this `Subscription`, please
 modify [examples/static-dividing-scheduling/subscription.yaml](https://github.com/clusternet/clusternet/blob/main/examples/static-dividing-scheduling/subscription.yaml)
 with your clusterID.
@@ -74,3 +89,6 @@ subscription.apps.clusternet.io/static-dividing-scheduling-demo created
 $ # or
 $ # kubectl-clusternet apply -f examples/static-dividing-scheduling/
 ```
+
+You can [check aggregated status](docs/tutorials/multi-cluster-apps/aggregated-status/) of feeds/resources running in
+each child clusters.
