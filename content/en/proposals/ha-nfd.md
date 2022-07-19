@@ -130,7 +130,6 @@ sequenceDiagram
     A->HK: Update CR Status : Description
     SK->>NM: CR: NodeFeatureRule changed
     NM->>EK: Set Node Label Such as: "HA1": "true"
-
 ```
 
 ### Test Plan
