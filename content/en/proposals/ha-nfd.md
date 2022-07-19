@@ -54,7 +54,7 @@ N/A
 
 2. Agent
 
-status manager: calculate ClusterFeatures based on node label combination (e.g. "or" for node label with prefix like "node.clusternet.io/cluster-feature/") and report to hub in ManagerCluster's labels
+agent's status manager: calculate ClusterFeatures based on node label combination (e.g. "or" for node label with prefix like "node.clusternet.io/cluster-feature/") and report to hub in ManagerCluster's labels
 
 3. Scheduler:
 
