@@ -1,8 +1,17 @@
+---
+title: "Hardware Awareness Scheduling Based on NFD"
+description: "proposal for hardware awareness scheduling"
+date: 2022-07-15
+draft: false
+weight: -2
+---
+
 # Proposal-NNNN: Hardware Awareness scheduler based on NFD 
 
 ## Authors
 
 Le, Huifeng
+
 Xu, Stephen
 
 ## Summary
@@ -25,9 +34,11 @@ Install NFD in child cluster
 
 ### User Stories (Optional)
 
-#### Story 1: As clusternet administrator, I want to define cluster feature as combination of child cluster node's hardware feature, such as CPU, FPGA etc.
+#### Story 1: 
+As clusternet administrator, I want to define cluster feature as combination of child cluster node's hardware feature, such as CPU, FPGA etc.
 
-#### Story 2: As clusternet administrator, I want to deploy my application to child clusters with required hardware features
+#### Story 2: 
+As clusternet administrator, I want to deploy my application to child clusters with required hardware features
 
 ### Notes/Constraints/Caveats (Optional)
 
@@ -41,12 +52,12 @@ Add-on scheduling mechanism on existing clusternet scheduler.
 N/A
 
 2. Agent
-status manager: calculate ClusterFeatures based on node label combination (e.g. "or" for node label with prefix like "clusternet.io/cluster-feature/") and report to hub in ManagerCluster's labels
+status manager: calculate ClusterFeatures based on node label combination (e.g. "or" for node label with prefix like "node.clusternet.io/cluster-feature/") and report to hub in ManagerCluster's labels
 
 3. Scheduler:
 ClusterFeatureFilter: filter cluster according to subscription’s clusterAffinity and ManagerCluster.labels
 Flow update: 
-  if subscription includes resource NodeFeatureRule, (1) add NodeFeatureRule CRD resource (2) append prefix such as "clusternet.io/cluster-feature/" in resource's labels
+  if subscription includes resource NodeFeatureRule, (1) add NodeFeatureRule CRD resource (2) append prefix such as "node.clusternet.io/cluster-feature/" in resource's labels
 
 NodeFeatureRule Sample: https://github.com/kubernetes-sigs/node-feature-discovery/blob/master/deployment/base/nfd-crds/cr-sample.yaml
 apiVersion: nfd.k8s-sigs.io/v1alpha1
@@ -67,7 +78,52 @@ spec:
             X86: {op: In, value: ["y"]}
 
 4. Sequence flow:
-<img src="./ha-nfd.png" height="400" />
+
+```mermaid
+sequenceDiagram
+    actor admin
+    participant S as Scheduler
+    participant H as Hub
+    participant HK as Hub K8s API Server
+    participant A as Agent
+    participant EK as Edge K8s API Server
+    participant NM as nfd-master
+    A->>HK: ClusterRegistrationRequests (cid, ctype, syncmode, labels)
+    HK->>H: CR: ClusterRegistrationRequest
+    H->>HK: create namespace, serviceaccount, rbac
+    H->>HK: create ManagerCluster
+    H->>HK: update ClusterRegistertionRequest Status
+    A->>A: waitingForApproval
+    HK->>A: CR: ClusterRegistrationRequest
+    loop Roll Update
+        A->>EK: Get Cluster Status
+        A->>A: calculate ClusterFeatures: node label combination (e.g. "or" for prefix with "node.clusternet.io/cluster-feature/")
+        A->>HK: ManagerCluster's label with ClusterFeatures
+    end
+    admin->>HK: new Subscription
+    Note over admin: 1. Subscription for CR NodeFeatureRule (day 1) 
+    Note over admin: 2. Subscription with cluster feature label in clusterAffinity (day 2)
+    HK->>S: CR: Subscription created/updated
+    S->>S: scheduleOne
+    S->>S: scheduleAlgorithm.Schedule()
+    Note over S: if feed is NodeFeatureRule: add NodeFeatureRule CRD resource and append prefix (e.g. node.clusternet.io/cluster-feature/) in NodeFeatureRule’s labels
+    S->>S: bind
+    S->>HK: Update CR: Subscription (BindingClusters, Replicas)
+    HK->>H: CR: Subscription
+    loop cluster
+        H->>HK: Create Base(namespace, feeds, labels)
+        loop feed
+            H->>HK: Create Localization
+            H->>HK:  CR: Description (namespace, clusterId, clusterName, Charts, raw
+        end
+    end
+    HK->>A: CR: Description
+    A->>EK: dynamicClient.Resource
+    A->HK: Update CR Status : Description
+    SK->>NM: CR: NodeFeatureRule changed
+    NM->>EK: Set Node Label Such as: "HA1": "true"
+
+```
 
 ### Test Plan
 
