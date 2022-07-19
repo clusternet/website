@@ -88,6 +88,7 @@ sequenceDiagram
     participant A as Agent
     participant EK as Edge K8s API Server
     participant NM as nfd-master
+    %% Cluster Registration
     A->>HK: ClusterRegistrationRequests (cid, ctype, syncmode, labels)
     HK->>H: CR: ClusterRegistrationRequest
     H->>HK: create namespace, serviceaccount, rbac
@@ -95,11 +96,13 @@ sequenceDiagram
     H->>HK: update ClusterRegistertionRequest Status
     A->>A: waitingForApproval
     HK->>A: CR: ClusterRegistrationRequest
+    %% Cluster Status update
     loop Roll Update
         A->>EK: Get Cluster Status
         A->>A: calculate ClusterFeatures: node label combination (e.g. "or" for prefix with "node.clusternet.io/cluster-feature/")
         A->>HK: ManagerCluster's label with ClusterFeatures
     end
+    %% Subscription
     admin->>HK: new Subscription
     Note over admin: 1. Subscription for CR NodeFeatureRule (day 1) 
     Note over admin: 2. Subscription with cluster feature label in clusterAffinity (day 2)
