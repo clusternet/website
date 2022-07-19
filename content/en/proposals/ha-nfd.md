@@ -49,17 +49,21 @@ Add-on scheduling mechanism on existing clusternet scheduler.
 ## Design Details
 
 1. API Definition:
+
 N/A
 
 2. Agent
+
 status manager: calculate ClusterFeatures based on node label combination (e.g. "or" for node label with prefix like "node.clusternet.io/cluster-feature/") and report to hub in ManagerCluster's labels
 
 3. Scheduler:
-ClusterFeatureFilter: filter cluster according to subscription’s clusterAffinity and ManagerCluster.labels
+
 Flow update: 
   if subscription includes resource NodeFeatureRule, (1) add NodeFeatureRule CRD resource (2) append prefix such as "node.clusternet.io/cluster-feature/" in resource's labels
 
 NodeFeatureRule Sample: https://github.com/kubernetes-sigs/node-feature-discovery/blob/master/deployment/base/nfd-crds/cr-sample.yaml
+
+```yaml
 apiVersion: nfd.k8s-sigs.io/v1alpha1
 kind: NodeFeatureRule
 metadata:
@@ -76,6 +80,7 @@ spec:
         - feature: kernel.config
           matchExpressions:
             X86: {op: In, value: ["y"]}
+```
 
 4. Sequence flow:
 
