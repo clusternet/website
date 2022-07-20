@@ -54,12 +54,12 @@ N/A
 
 2. Agent
 
-agent's status manager: calculate ClusterFeatures based on node label combination (e.g. "or" for node label with prefix like "node.clusternet.io/cluster-feature/") and report to hub in ManagerCluster's labels
+agent's status manager: calculate ClusterFeatures based on node label combination (e.g. "or" for node label with prefix like "node.clusternet.io/") and report to hub in ManagerCluster's labels
 
 3. Scheduler:
 
 Flow update: 
-  if subscription includes resource NodeFeatureRule, (1) add NodeFeatureRule CRD resource (2) append prefix such as "node.clusternet.io/cluster-feature/" in resource's labels
+  if subscription includes resource NodeFeatureRule (the CR should follow clusternet requirement, e.g. label with "node.clusternet.io/" as prefix), add NodeFeatureRule CRD resource
 
 NodeFeatureRule Sample: https://github.com/kubernetes-sigs/node-feature-discovery/blob/master/deployment/base/nfd-crds/cr-sample.yaml
 
@@ -72,7 +72,7 @@ spec:
   rules:
     - name: "my sample rule"
       labels:
-        "my-sample-feature": "true"
+        "node.clusternet.io/my-HA-feature": "true"
       matchFeatures:
         - feature: kernel.loadedmodule
           matchExpressions:
@@ -106,7 +106,7 @@ sequenceDiagram
     %% Cluster Status update
     loop Roll Update
         A->>EK: Get Cluster Status
-        A->>A: calculate ClusterFeatures: node label combination (e.g. "or" for prefix with "node.clusternet.io/cluster-feature/")
+        A->>A: calculate ClusterFeatures: node label combination (e.g. "or" for prefix with "node.clusternet.io/")
         A->>HK: ManagerCluster's label with ClusterFeatures
     end
     
@@ -117,7 +117,7 @@ sequenceDiagram
     HK->>S: CR: Subscription created/updated
     S->>S: scheduleOne
     S->>S: scheduleAlgorithm.Schedule()
-    Note over S: if feed is NodeFeatureRule: add NodeFeatureRule CRD resource and append prefix (e.g. node.clusternet.io/cluster-feature/) in NodeFeatureRule’s labels
+    Note over S: NodeFeatureRule CR: add NodeFeatureRule CRD resource
     S->>S: bind
     S->>HK: Update CR: Subscription (BindingClusters, Replicas)
     HK->>H: CR: Subscription
@@ -125,14 +125,14 @@ sequenceDiagram
         H->>HK: Create Base(namespace, feeds, labels)
         loop feed
             H->>HK: Create Localization
-            H->>HK:  CR: Description (namespace, clusterId, clusterName, Charts, raw
+            H->>HK:  CR: Description (namespace, clusterId, clusterName, Charts, raw)
         end
     end
     HK->>A: CR: Description
     A->>EK: dynamicClient.Resource
     A->HK: Update CR Status : Description
     SK->>NM: CR: NodeFeatureRule changed
-    NM->>EK: Set Node Label Such as: "HA1": "true"
+    NM->>EK: Set Node Label Such as: "node.clusternet.io/my-HA-feature": "true"
 ```
 
 ### Test Plan
