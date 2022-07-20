@@ -59,13 +59,11 @@ default * docker
 
 > 注意:
 >
-> 为了更好地支持 docker buildx ，建议使用 Ubuntu Focal 20.04 (LTS)、Debian Bullseye 11 和 CentOS 8。
->
-> 并安装 deb/rpm 包：`qemu-user-static`，例如
+> 为了更好地支持 docker buildx ，建议使用 Ubuntu Focal 20.04 (LTS)、Debian Bullseye 11 和 CentOS 8，并安装 deb/rpm 包：`qemu-user-static`，例如
 > ```bash
 > apt-get install qemu-user-static
 > ```
-> or
+> 或者
 > ```bash
 > yum install qemu-user-static
 > ```
