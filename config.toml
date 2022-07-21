@@ -89,7 +89,7 @@ unsafe = true
 # See a complete list of available styles at https://xyproto.github.io/splash/docs/all.html
 style = "tango"
 # Uncomment if you want your chosen highlight style used for code blocks without a specified language
-# guessSyntax = "true"
+guessSyntax = "false"
 
 # Everything below this are Site Params
 
@@ -210,6 +210,10 @@ name = "Developer discussion group"
 url = "https://groups.google.com/g/clusternet"
 icon = "fas fa-users"
 desc = "Discuss development issues around the project"
+
+[params.mermaid]
+enable = true
+theme = "default"
 
 # hugo module configuration
 
