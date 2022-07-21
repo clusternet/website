@@ -1,5 +1,5 @@
 ---
-title: "client-go 支持"
+title: "支持 client-go"
 description: "使用 client-go 与 Clusternet 交互"
 date: 2022-01-17
 draft: false
