@@ -34,7 +34,7 @@ status:
   token: REDACTED
 ```
 
-`ClusterRegistrationRequest` 获准后，用于在需要时访问父集群的相应凭据的状态将更新。这些凭据使用集群或项目空间 RBAC 规则进行设置，有关详细信息，请参阅以下两条规则。
+`ClusterRegistrationRequest` 获准后，用于访问父集群的相应凭据的状态将被更新。这些凭据使用集群或项目空间 RBAC 规则进行设置，有关详细信息，请参阅以下两条规则。
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -89,7 +89,7 @@ rules:
 
 ## 检查 ManagedCluster 状态
 
-每个获得批准的注册集群，都会在此集群创建一个专用的命名空间。创建 `ManagedCluster` 来表示集群，其中包括集群元数据、集群健康心跳等。
+每个获得批准的注册集群都会拥有一个专属的命名空间。使用 `ManagedCluster` 来表征子集群，包含了集群云数据，集群健康心跳等等。
 
 ```bash
 $ # mcls 是 ManagedCluster 的别名
