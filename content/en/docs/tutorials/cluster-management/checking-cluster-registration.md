@@ -34,7 +34,8 @@ status:
   token: REDACTED
 ```
 
-`ClusterRegistrationRequest` 获准后，用于访问父集群的相应凭据的状态将被更新。这些凭据使用集群或项目空间 RBAC 规则进行设置，有关详细信息，请参阅以下两条规则。
+`ClusterRegistrationRequest` 被批准后，用于访问父集群的相关凭据的状态将被更新。
+这些凭据定义了角色对集群或项目空间资源的访问控制权限（更多详细信息，请参阅 [RBAC](https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/rbac/) 规则），例如：
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
