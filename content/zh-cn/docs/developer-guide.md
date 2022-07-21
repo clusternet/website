@@ -1,17 +1,16 @@
 ---
 title: "开发者指南"
-description: "Getting started to develop Clusternet"
+description: "如何开发 Clusternet"
 date: 2022-01-17
 draft: false
 weight: 10
 ---
 
-First, please make sure you've got a working [Go environment](https://golang.org/doc/install)
-and [Docker environment](https://docs.docker.com/engine).
+首先，请确保您有一个可用的 [Go 环境](https://golang.org/doc/install) 和 [Docker 环境](https://docs.docker.com/engine) 。
 
-## Clone Clusternet
+## 克隆 Clusternet
 
-Clone the repository,
+克隆代码仓库
 
 ```bash
 mkdir -p $GOPATH/src/github.com/clusternet/
@@ -20,34 +19,34 @@ git clone https://github.com/clusternet/clusternet
 cd clusternet
 ```
 
-## Building Binaries
+## 构建二进制文件
 
-Run
+运行
 
 ```bash
-# build for linux/amd64 by default
+# 基础环境默认为 linux/amd64 
 make clusternet-agent clusternet-hub clusternet-scheduler
 ```
 
-to build binaries `clusternet-agent`, `clusternet-hub` and `clusternet-scheduler` for `linux/amd64`.
+基于“linux/amd64”架构构建了二进制文件“clusternet-agent”、“clusternet-hub”和“clusternet-scheduler”。
 
-Also you could specify other platforms when building, such as,
+您还可以在构建时指定其他平台，例如，
 
 ```bash
-# build only clusternet-agent for linux/arm64 and darwin/amd64
-# use comma to separate multiple platforms
+# 基于 linux/arm64 和 darwin/amd64 来构建 clusternet-agent
+# 使用逗号分隔多个平台
 PLATFORMS=linux/arm64,darwin/amd64 make clusternet-agent
-# below are all the supported platforms
+# 支持以下平台
 # PLATFORMS=darwin/amd64,darwin/arm64,linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm
 ```
 
-All the built binaries will be placed at `_output` folder.
+所有构建的二进制文件都将放置在 `_output` 文件夹中。
 
-## Building Docker Images
+## 构建 docker 镜像
 
-You can also build docker images. Here `docker buildx` is used to help build multi-arch container images.
+您还可以构建 docker 映像。 这里 `docker buildx` 用于帮助构建多架构容器镜像。
 
-If you're running MacOS, please install [Docker Desktop](https://docs.docker.com/desktop/) and then check the builder,
+如果您运行的是 MacOS，请安装 [Docker Desktop](https://docs.docker.com/desktop/)， 然后检查构建器。
 
 ```bash
 $ docker buildx ls
@@ -56,32 +55,29 @@ default * docker
   default default         running linux/amd64, linux/arm64, linux/ppc64le, linux/s390x, linux/386, linux/arm/v7, linux/arm/v6
 ```
 
-If you're running Linux, please refer to [docker buildx docs](https://docs.docker.com/buildx/working-with-buildx/)
-on the installation.
+如果您运行的是 Linux，请参考 [docker buildx docs](https://docs.docker.com/buildx/working-with-buildx/) 进行安装。
 
-> Note:
+> 注意:
 >
-> For better `docker buildx` support, it is recommended to use Ubuntu Focal 20.04 (LTS), Debian Bullseye 11 and CentOS 8.
->
-> And install deb/rpm package `qemu-user-static` as well, such as
+> 为了更好地支持 docker buildx ，建议使用 Ubuntu Focal 20.04 (LTS)、Debian Bullseye 11 和 CentOS 8，并安装 deb/rpm 包：`qemu-user-static`，例如
 > ```bash
 > apt-get install qemu-user-static
 > ```
-> or
+> 或者
 > ```bash
 > yum install qemu-user-static
 > ```
 
 ```bash
-# build for linux/amd64 by default
-# container images for clusternet-agent, clusternet-hub and clusternet-scheduler
+# 默认基于 linux/amd64 架构构建
+# 构建 clusternet-agent, clusternet-hub and clusternet-scheduler 镜像
 make images
 ```
 
-Also you could build container images for other platforms, such as `arm64`,
+你也可以为其他平台构建容器镜像，例如`arm64`，
 
 ```bash
 PLATFORMS=linux/amd64,linux/arm64,linux/ppc64le make images
-# below are all the supported platforms
+# 支持以下平台
 # PLATFORMS=linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm
 ```
