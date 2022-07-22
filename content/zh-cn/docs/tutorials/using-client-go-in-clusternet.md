@@ -1,20 +1,19 @@
 ---
-title: "client-go Support"
-description: "Using client-go to interact with Clusternet"
+title: "支持 client-go"
+description: "使用 client-go 与 Clusternet 交互"
 date: 2022-01-17
 draft: false
 weight: 4
 collapsible: false
 ---
 
-If you want to use [client-go](https://github.com/kubernetes/client-go) to interact with Clusternet, you only need to
-insert below `wrapperFunc` in your codes, while the rest remains the same.
+如果你想使用 client-go 与 Clusternet 交互，你只需要在你的代码中插入下面的 `wrapperFunc`，其余的保持不变。
 
 ```go
-// This is the ONLY place you need to wrap for Clusternet
+// 只需添加如下代码
 config.Wrap(func(rt http.RoundTripper) http.RoundTripper {
     return clientgo.NewClusternetTransport(config.Host, rt)
 })
 ```
 
-You can follow [demo.go](https://github.com/clusternet/clusternet/blob/main/examples/clientgo/demo.go) for a quick start.
+您可以查阅 [demo.go](https://github.com/clusternet/clusternet/blob/main/examples/clientgo/demo.go) 以快速入门。
