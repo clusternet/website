@@ -1,13 +1,13 @@
 ---
-title: "Visiting Child Clusters with RBAC"
-description: "Learn how to visit child clusters with RBAC from parent cluster"
+title: "通过RBAC权限来访问子集群"
+description: "了解如何从父集群使用RBAC访问子集群"
 date: 2022-01-17
 weight: 2
 ---
 
-***Clusternet supports visiting all your managed clusters with RBAC directly from parent cluster.***
+***Clusternet支持直接从父集群使用RBAC访问所有托管集群.***
 
-Here we assume the `kube-apiserver` running in parent cluster allows **anonymous requests**. That is
-flag `--anonymous-auth` (default to be `true`) is not set to `false` explicitly.
+这里我们假设在父集群中运行的`kube-apiserver`允许**匿名请求**。 那是
+标志`--anonymous-auth`（默认为`true`）未明确设置为`false`。
 
-If not, an extra token from parent cluster is required.
+如果没有，则需要来自父集群的额外令牌.
