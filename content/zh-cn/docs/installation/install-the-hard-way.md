@@ -105,4 +105,4 @@ kubectl apply -f deploy/agent
 
 ## Checking Cluster Registration
 
-Please follow [this guide](./checking-cluster-registration.md) to check cluster registrations.
+Please follow [this guide](/zh-cn/docs/tutorials/cluster-management/checking-cluster-registration/) to check cluster registrations.

@@ -1,15 +1,15 @@
 ---
-title: "Checking Cluster Registration"
-description: "Learn how to check your child cluster registration status"
+title: "检查集群注册状态"
+description: "了解如何检查您的子集群注册状态"
 date: 2022-01-17
 draft: false
 weight: 1
 ---
 
-`clusternet-agent` will automatically create a registration request `ClusterRegistrationRequest` for every cluster.
+`clusternet-agent` 会自动为每个集群创建一个注册请求 `ClusterRegistrationRequest`。
 
 ```bash
-$ # clsrr is an alias for ClusterRegistrationRequest
+$ # clsrr 是 ClusterRegistrationRequest 的别名
 $ kubectl get clsrr
 NAME                                              CLUSTER ID                             STATUS     AGE
 clusternet-dc91021d-2361-4f6d-a404-7c33b9e01118   dc91021d-2361-4f6d-a404-7c33b9e01118   Approved   3d6h
@@ -34,9 +34,8 @@ status:
   token: REDACTED
 ```
 
-After `ClusterRegistrationRequest` is approved, the status will be updated with corresponding credentials that can be
-used to access parent cluster if needed. Those credentials have been set with scoped RBAC rules, see blow two rules for
-details.
+`ClusterRegistrationRequest` 被批准后，用于访问父集群的相关凭据的状态将被更新。
+这些凭据定义了角色对集群或项目空间资源的访问控制权限（更多详细信息，请参阅 [RBAC](https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/rbac/) 规则），例如：
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -67,7 +66,7 @@ rules:
       - '*'
 ```
 
-and
+和
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -89,16 +88,14 @@ rules:
       - '*'
 ```
 
-## Check ManagedCluster Status
+## 检查 ManagedCluster 状态
 
-For every registered cluster that gets approved, there will be a dedicated namespace created for this
-cluster. `ManagedCluster` will be created as well to represent the cluster, including cluster metadata, cluster healthy
-heartbeat, etc.
+每个获得批准的注册集群都会拥有一个专属的命名空间。使用 `ManagedCluster` 来表征子集群，包含了集群云数据，集群健康心跳等等。
 
 ```bash
-$ # mcls is an alias for ManagedCluster
+$ # mcls 是 ManagedCluster 的别名
 $ # kubectl get mcls -A
-$ # or append "-o wide" to display extra columns
+$ # 或附加“-o wide”以显示额外的列
 $ kubectl get mcls -A -o wide
 NAMESPACE          NAME                       CLUSTER ID                             CLUSTER TYPE   SYNC MODE   KUBERNETES   READYZ   AGE
 clusternet-dhxfs   clusternet-cluster-dzqkw   dc91021d-2361-4f6d-a404-7c33b9e01118   EdgeCluster    Dual        v1.19.10     true     7d23h
