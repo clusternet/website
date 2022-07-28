@@ -14,8 +14,7 @@ weight: 3
 或者`/apis/proxies.clusternet.io/v1alpha1/sockets/<CLUSTER-ID>/proxy/direct` 在**parent cluster**的末尾
 附加服务器地址
 
-- `CLUSTER-ID` 是您的子集群的 UUID，由 `clusternet-agent` 自动填充，例如 dc91021d-2361-4f6d-a404-7c33b9e01118。 您可以从对象`ClusterRegistrationRequest`中获取此 UUID，
-   `ManagedCluster` 等。此 UUID 也标有密钥 `clusters.clusternet.io/cluster-id`。  
+- `CLUSTER-ID` 是您的子集群的 UUID，由 `clusternet-agent` 自动填充，例如 dc91021d-2361-4f6d-a404-7c33b9e01118。您可以从 ClusterRegistrationRequest，ManagedCluster等资源对象中获取此 UUID。这个 UUID 也以键值为 clusters.clusternet.io/cluster-id 的标签存在。
 
 - `SERVER-URL` 是你的子集群的 apiserver 地址，它可以是 `localhost`、`127.0.0.1` 等等，前提是
    `clusternet-agent` 可以访问。
@@ -111,7 +110,7 @@ users:
     client-certificate-data: REDACTED
     client-key-data: REDACTED
 $
-$ # 修改用户部分到下面
+$ # 照下面的方式修改用户部分
 $ vim config-cluster-dc91021d-2361-4f6d-a404-7c33b9e01118
   ...
   user:
@@ -161,7 +160,7 @@ users:
     client-certificate-data: REDACTED
     client-key-data: REDACTED
 $
-$ # 修改用户部分到下面
+$ # 照下面的方式修改用户部分
 $ vim config-cluster-dc91021d-2361-4f6d-a404-7c33b9e01118
   ...
   user:
