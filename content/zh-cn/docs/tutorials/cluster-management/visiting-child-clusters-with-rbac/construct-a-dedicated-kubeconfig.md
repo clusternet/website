@@ -1,29 +1,28 @@
 ---
-title: "Visiting Child Clusters with Dedicated KubeConfig"
-description: "Learn how to construct a dedicated KubeConfig for a child cluster"
+title: "使用专用 KubeConfig 访问子集群"
+description: "了解如何为子集群构建专用的 KubeConfig"
 date: 2022-01-17
 draft: false
 weight: 3
 ---
 
-You need to follow below **2 steps** to construct a dedicated kubeconfig to access a child cluster with `kubectl`.
+您需要按照以下 **2 个步骤** 来构建专用 kubeconfig 来使用 `kubectl` 访问子集群。
 
-## Step 1: Modify Server URL
+## 步骤一: 修改服务器地址
 
-Append `/apis/proxies.clusternet.io/v1alpha1/sockets/<CLUSTER-ID>/proxy/https/<SERVER-URL>`
-or `/apis/proxies.clusternet.io/v1alpha1/sockets/<CLUSTER-ID>/proxy/direct` at the end of original **parent cluster**
-server address
+在`/apis/proxies.clusternet.io/v1alpha1/sockets/<CLUSTER-ID>/proxy/https/<SERVER-URL>`
+或者`/apis/proxies.clusternet.io/v1alpha1/sockets/<CLUSTER-ID>/proxy/direct` 在**parent cluster**的末尾
+附加服务器地址
 
-- `CLUSTER-ID` is a UUID for your child cluster, which is auto-populated by `clusternet-agent`, such as dc91021d-2361-4f6d-a404-7c33b9e01118. You could get this UUID from objects `ClusterRegistrationRequest`,
-  `ManagedCluster`, etc. Also this UUID is labeled with key `clusters.clusternet.io/cluster-id`.
+- `CLUSTER-ID` 是您的子集群的 UUID，由 `clusternet-agent` 自动填充，例如 dc91021d-2361-4f6d-a404-7c33b9e01118。您可以从 ClusterRegistrationRequest，ManagedCluster等资源对象中获取此 UUID。这个 UUID 也以键值为 clusters.clusternet.io/cluster-id 的标签存在。
 
-- `SERVER-URL` is the apiserver address of your child cluster, it could be `localhost`, `127.0.0.1` and etc, only if
-  `clusternet-agent` could access.
+- `SERVER-URL` 是你的子集群的 apiserver 地址，它可以是 `localhost`、`127.0.0.1` 等等，前提是
+   `clusternet-agent` 可以访问。
 
-You can follow below commands to help modify above changes.
+您可以按照以下命令帮助修改上述更改。
 
 ```bash
-$ # suppose your parent cluster kubeconfig locates at /home/demo/.kube/config.parent
+$ # 假设您的父集群kubeconfig位于 /home/demo/.kube/config.parent
 $ kubectl config view --kubeconfig=/home/demo/.kube/config.parent --minify=true --raw=true > ./config-cluster-dc91021d-2361-4f6d-a404-7c33b9e01118
 $
 $ export KUBECONFIG=`pwd`/config-cluster-dc91021d-2361-4f6d-a404-7c33b9e01118
@@ -48,48 +47,48 @@ users:
     client-certificate-data: REDACTED
     client-key-data: REDACTED
 $
-$ # suppose your child cluster running at https://demo1.cluster.net
+$ # 假设您的子集群在 https://demo1.cluster.net 运行
 $ kubectl config set-cluster `kubectl config get-clusters | grep -v NAME` \
   --server=https://10.0.0.10:6443/apis/proxies.clusternet.io/v1alpha1/sockets/dc91021d-2361-4f6d-a404-7c33b9e01118/proxy/https/demo1.cluster.net
-$ # or just use the direct proxy path
+$ # 或者只使用直接代理路径
 $ kubectl config set-cluster `kubectl config get-clusters | grep -v NAME` \
   --server=https://10.0.0.10:6443/apis/proxies.clusternet.io/v1alpha1/sockets/dc91021d-2361-4f6d-a404-7c33b9e01118/proxy/direct
 ```
 
 {{% alert title="Note" color="primary" %}}
-Clusternet supports both http and https scheme.
+Clusternet 支持 http 和 https 方案。
 
-If you want to use scheme `http` to demonstrate how it works, i.e. `/apis/proxies.clusternet.io/v1alpha1/sockets/<CLUSTER-ID>/proxy/http/<SERVER-URL>`,
-you can simply ***run a local proxy in your child cluster***, for example,
+如果你想使用方案`http`来演示它是如何工作的，即`/apis/proxies.clusternet.io/v1alpha1/sockets/<CLUSTER-ID>/proxy/http/<SERVER-URL>`，
+您可以简单地***在您的子集群中运行本地代理***，例如，
 
 ```bash
 kubectl proxy --address='10.212.0.7' --accept-hosts='^*$'
 ```
 
-Please replace `10.212.0.7` with your real local IP address.
+请将 `10.212.0.7` 替换为您的真实本地IP地址。
 
-Then follow above url modification as well.
+然后也按照上面的 url 修改。
 {{% /alert %}}
 
-## Step 2: Configure Credentials from Child Clusters
+## 步骤 2：从子集群配置凭证
 
-Then update user entry with **credentials from child clusters**.
+然后使用**来自子集群的凭据**更新用户条目。
 
 {{% alert title="Note" color="info" %}}
-`Clusternet-hub` does not care about those credentials at all, passing them directly to child clusters.
+`Clusternet-hub` 根本不关心这些凭据，直接将它们传递给子集群。
 {{% /alert %}}
 
-### If you're using tokens
+### 如果您使用令牌
 
-Here the tokens can be [bootstrap tokens](https://kubernetes.io/docs/reference/access-authn-authz/bootstrap-tokens/),
+这里的令牌可以是 [bootstrap tokens](https://kubernetes.io/docs/reference/access-authn-authz/bootstrap-tokens/),
 [ServiceAccount tokens](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#use-multiple-service-accounts)
-, etc.
+,等等。
 
-Please follow below modifications.
+请按照以下修改。
 
 ```bash
 $ export KUBECONFIG=`pwd`/config-cluster-dc91021d-2361-4f6d-a404-7c33b9e01118
-$ # below is what we modified in above step 1
+$ # 以下是我们在上述步骤 1 中修改的内容
 $ kubectl config view
 apiVersion: v1
 clusters:
@@ -111,7 +110,7 @@ users:
     client-certificate-data: REDACTED
     client-key-data: REDACTED
 $
-$ # modify user part to below
+$ # 照下面的方式修改用户部分
 $ vim config-cluster-dc91021d-2361-4f6d-a404-7c33b9e01118
   ...
   user:
@@ -122,25 +121,24 @@ $ vim config-cluster-dc91021d-2361-4f6d-a404-7c33b9e01118
             - BASE64-DECODED-PLEASE-CHANGE-ME
 ```
 
-Please replace `BASE64-DECODED-PLEASE-CHANGE-ME` to a token that valid from **child cluster**. ***Please notice the
-tokens replaced here should be base64 decoded.***
+请将 `BASE64-DECODED-PLEASE-CHANGE-ME` 替换为对**子集群**有效的令牌。 ***请注意此处替换的令牌应经过 base64 解码。***
 
 {{% alert title="Important Note" color="primary" %}}
-If anonymous auth is not allowed, please replace `username: system:anonymous` to `token: PARENT-CLUSTER-TOKEN`.
-Here `PARENT-CLUSTER-TOKEN` can be retrieved with below command,
+如果不允许匿名身份验证，请将 `username: system:anonymous` 替换为 `token: PARENT-CLUSTER-TOKEN`。
+在这里，可以使用以下命令检索 `PARENT-CLUSTER-TOKEN`，
 
 ```bash
 kubectl get secret -n clusternet-system -o=jsonpath='{.items[?(@.metadata.annotations.kubernetes\.io/service-account\.name=="clusternet-hub-proxy")].data.token}' | base64 --decode; echo
 ```
 {{% /alert %}}
 
-### If you're using TLS certificates
+### 如果您使用 TLS 证书
 
-Please follow below modifications.
+请按照以下修改。
 
 ```bash
 $ export KUBECONFIG=`pwd`/config-cluster-dc91021d-2361-4f6d-a404-7c33b9e01118
-$ # below is what we modified in above step 1
+$ # 以下是我们在上述步骤 1 中修改的内容
 $ kubectl config view
 apiVersion: v1
 clusters:
@@ -162,7 +160,7 @@ users:
     client-certificate-data: REDACTED
     client-key-data: REDACTED
 $
-$ # modify user part to below
+$ # 照下面的方式修改用户部分
 $ vim config-cluster-dc91021d-2361-4f6d-a404-7c33b9e01118
   ...
   user:
@@ -175,13 +173,12 @@ $ vim config-cluster-dc91021d-2361-4f6d-a404-7c33b9e01118
             - CLIENT-KEY-DATE-PLEASE-BASE64-ENCODED-CHANGE-ME
 ```
 
-Please replace `CLIENT-CERTIFICATE-DATE-BASE64-ENCODED-PLEASE-CHANGE-ME`
-and `CLIENT-KEY-DATE-PLEASE-BASE64-ENCODED-CHANGE-ME` with certficate and private key from child cluster. **Please
-notice the tokens replaced here should be base64 encoded.**
+请替换 `CLIENT-CERTIFICATE-DATE-BASE64-ENCODED-PLEASE-CHANGE-ME`
+以及带有来自子集群的证书和私钥的“CLIENT-KEY-DATE-PLEASE-BASE64-ENCODED-CHANGE-ME”。 **请注意这里替换的标记应该是base64编码的。**
 
 {{% alert title="Important Note" color="primary" %}}
-If anonymous auth is not allowed, please replace `username: system:anonymous` to `token: PARENT-CLUSTER-TOKEN`.
-Here `PARENT-CLUSTER-TOKEN` can be retrieved with below command,
+如果不允许匿名身份验证，请将 `username: system:anonymous` 替换为 `token: PARENT-CLUSTER-TOKEN`。
+在这里，可以使用以下命令检索 `PARENT-CLUSTER-TOKEN`，
 
 ```bash
 kubectl get secret -n clusternet-system -o=jsonpath='{.items[?(@.metadata.annotations.kubernetes\.io/service-account\.name=="clusternet-hub-proxy")].data.token}' | base64 --decode; echo

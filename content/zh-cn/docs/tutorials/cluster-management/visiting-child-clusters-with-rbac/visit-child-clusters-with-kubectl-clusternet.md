@@ -1,14 +1,13 @@
 ---
-title: "Visiting Child Clusters via kubectl-clusternet plugin"
-description: "The easiest and most recommended way to visit child clusters"
+title: "通过 kubectl-clusternet 插件访问子集群"
+description: "访问子集群的最简单和最推荐的方式"
 date: 2022-01-17
 draft: false
 weight: 1
 ---
 
-First,
-please [install/upgrade `kubectl-clusternet` plugin](https://github.com/clusternet/kubectl-clusternet#installation) with
-a minimum required version `v0.5.0`.
+首先,
+请 [安装/升级 `kubectl-clusternet` 插件](https://github.com/clusternet/kubectl-clusternet#installation) 最低要求的版本 `v0.5.0`.
 
 ```bash
 $ kubectl clusternet version
@@ -34,5 +33,5 @@ test-nginx          Active   11d
 test-systemd        Active   11d
 ```
 
-Here the apiserver in above kubeconfig file `azure-cd-kubeconfig` could be with an inner address. Now you can easily
-check any objects status in child clusters.
+这里上面的 kubeconfig 文件 `azure-cd-kubeconfig` 中的 apiserver 可能带有一个内部地址。 现在您可以轻松
+检查子集群中的任何对象状态。
