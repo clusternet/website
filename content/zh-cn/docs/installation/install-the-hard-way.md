@@ -7,9 +7,9 @@ weight: 3
 ---
 
 
-本教程将引导您以“最硬核”的方式安装 Clusternet。 您也可以尝试参考 [使用Helm安装'Clusternet'](/docs/getting-started/install-with-helm)进行安装。
+本教程将引导您以“最硬核”的方式安装 Clusternet。 您也可以尝试参考 [使用Helm安装'Clusternet'](/zh-cn/docs/installation/install-with-helm/)进行安装。
 
-“最硬核”的方式安装 Clusternet 针对安装过程进行了优化，您可以一步一步的来了解 Clusternet，以确保您能理解每个必要的步骤，以便于确保成功安装 `Clusternet`。
+这种“最硬核”的方式便于您学习，并理解安装 Clusternet 所需要的每一个任务。
 
 ---
 
@@ -27,10 +27,9 @@ weight: 3
 kubectl apply -f deploy/hub
 ```
 
-接下来，您需要为群集注册创建一个 token。这将用于
-`clusternet-agent`. `bootstrap token` 或 `service account token`都可以。
+接下来，您需要为群集注册创建一个 token，随后会被 clusternet-agent 使用到。`bootstrap token` 或 `service account token`都可以。
 
-- 如果支持`bootstrapping`身份验证，即配置 `--enable-bootstrap-token-auth=true` `kube-apiserver` 将在父集群中运行，
+- 如果支持`bootstrapping`身份验证，即在父集群中运行的 `kube-apiserver` 显式地设置了 `--enable-bootstrap-token-auth=true` ，
 
   ```bash
   # 这将创建一个 bootstrap token 07401b.f395accd246ae52d
@@ -64,7 +63,7 @@ kubectl apply -f deploy/scheduler
 - `Dual` 结合了 `Push` 和 `Pull` 模式. 强烈建议使用此模式，通常和
   特性功能 `AppPusher` 一起使用。
 
-特性功能  `AppPusher`  在代理端工作，主要出于以下两个原因引入，
+特性功能  `AppPusher`  在 `agent` 侧工作，主要出于以下两个原因引入，
 
 - `SyncMode` 是不建议在注册后更改的, 这可能会导致设置和行为不一致。这就是为什么强烈建议使用 `Dual`。 当设置 `Dual` 模式时， `AppPusher` 提供帮助将 `Push` 模式切换到 `Pull`模式的方法，而无需更改参数 `--cluster-sync-mode`，反之亦然。
 
@@ -75,7 +74,7 @@ kubectl apply -f deploy/scheduler
 
   要部署的资源表示为 `Description`，您也可以运行自己的控制器来观察变更 `Description` 对象，然后分发和部署资源。
 
-部署 `clusternet-agent`后，应首先创建包含群集注册token的机密。
+在部署 `clusternet-agent` 的时候，应提前创建一个 `secret` 对象，包含着可用于集群注册的 `token`。
 
 ```bash
 # 创建命名空间 clusternet-system（如果未创建）
