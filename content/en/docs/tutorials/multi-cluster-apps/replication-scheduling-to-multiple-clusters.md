@@ -36,7 +36,7 @@ spec:
     - apiVersion: v1
       kind: Namespace
       name: foo
-    - apiVersion: apps/v1
+    - apiVersion: v1
       kind: Service
       name: my-nginx-svc
       namespace: foo
