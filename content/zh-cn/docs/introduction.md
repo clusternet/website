@@ -35,6 +35,7 @@ Clusternet现在支持多个平台，包括`linux/amd64`、`linux/arm64`、`linu
   - managing any [Certified Kubernetes Distributions](https://www.cncf.io/certification/software-conformance/), such
     as [k3s](https://github.com/k3s-io/k3s)
   - managing Kubernetes clusters running at the edge
+  - auto discovering clusters created by [cluster-api](https://github.com/kubernetes-sigs/cluster-api)
   - parent cluster can also register itself as a child cluster to run workloads
   - managing Kubernetes version skewed from v1.17.x to v1.22.x (Learn more
     about [Kubernetes Version Skew](/docs/introduction/#kubernetes-version-skew))
@@ -92,9 +93,9 @@ Clusternet 是一个轻量级插件，由“clusternet-agent”、“clusternet-
 ## Kubernetes 版本支持
 
 `Clusternet` 兼容多个 Kubernetes 版本。 例如，您可以使用 Kubernetes v1.20.8 运行“clusternet-hub”，而子 Kubernetes 集群的版本范围
-可以从 v1.18.x 到 v1.22.x。
+可以从 v1.18.x 到 v1.23.x。
 
-| 版本                      | Kubernetes v1.17.x | v1.18.x | v1.19.x ~ v1.22.x |
+| 版本                      | Kubernetes v1.17.x | v1.18.x | v1.19.x ~ v1.23.x |
 |-------------------------|--------------------|----------|-------------------|
 | Clusternet v0.5.0       | \*                 | \*       | ✓                 |
 | Clusternet v0.6.0       | \*                 | ✓        | ✓                 |
