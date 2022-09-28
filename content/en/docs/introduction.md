@@ -34,38 +34,39 @@ Clusternet is multiple platforms supported now, including `linux/amd64`, `linux/
 ## Core Features
 
 - Kubernetes Multi-Cluster Management and Governance
-    - managing Kubernetes clusters running in cloud providers, such as AWS, Google Cloud, Tencent Cloud, Alibaba Cloud,
-      etc
-    - managing on-premise Kubernetes clusters
-    - managing any [Certified Kubernetes Distributions](https://www.cncf.io/certification/software-conformance/), such
-      as [k3s](https://github.com/k3s-io/k3s)
-    - managing Kubernetes clusters running at the edge
-    - parent cluster can also register itself as a child cluster to run workloads
-    - managing Kubernetes version skewed from v1.17.x to v1.22.x (Learn more
-      about [Kubernetes Version Skew](/docs/introduction/#kubernetes-version-skew))
-    - visiting any managed clusters with dynamic RBAC rules (Learn more
-      from [this tuorial](/docs/tutorials/cluster-management/visiting-child-clusters-with-rbac/))
+  - managing Kubernetes clusters running in cloud providers, such as AWS, Google Cloud, Tencent Cloud, Alibaba Cloud,
+    etc
+  - managing on-premise Kubernetes clusters
+  - managing any [Certified Kubernetes Distributions](https://www.cncf.io/certification/software-conformance/), such
+    as [k3s](https://github.com/k3s-io/k3s)
+  - managing Kubernetes clusters running at the edge
+  - auto discovering clusters created by [cluster-api](https://github.com/kubernetes-sigs/cluster-api)
+  - parent cluster can also register itself as a child cluster to run workloads
+  - managing Kubernetes version skewed from v1.17.x to v1.22.x (Learn more
+    about [Kubernetes Version Skew](/docs/introduction/#kubernetes-version-skew))
+  - visiting any managed clusters with dynamic RBAC rules (Learn more
+    from [this tuorial](/docs/tutorials/cluster-management/visiting-child-clusters-with-rbac/))
 - Application Coordinations
-    - Cross-Cluster Scheduling
-        - replication scheduling
-        - static dividing scheduling by weight
-        - dynamic dividing scheduling by capacity
-    - Various Resource Types
-        - Kubernetes native objects, such as `Deployment`, `StatefulSet`, etc
-        - CRD
-        - helm charts, including [OCI-based Helm charts](https://helm.sh/docs/topics/registries/)
-    - [Setting Overrides](/docs/tutorials/multi-cluster-apps/setting-overrides/)
-        - two-stage priority based override strategies
-        - easy to rollback
-        - cross-cluster canary rollout
+  - Cross-Cluster Scheduling
+    - replication scheduling
+    - static dividing scheduling by weight
+    - dynamic dividing scheduling by capacity
+  - Various Resource Types
+    - Kubernetes native objects, such as `Deployment`, `StatefulSet`, etc
+    - CRD
+    - helm charts, including [OCI-based Helm charts](https://helm.sh/docs/topics/registries/)
+  - [Setting Overrides](/docs/tutorials/multi-cluster-apps/setting-overrides/)
+    - two-stage priority based override strategies
+    - easy to rollback
+    - cross-cluster canary rollout
 - CLI
-    - providing a kubectl plugin, which can be installed with `kubectl krew install clusternet`
-    - consistent user experience with `kubectl`
-    - create/update/watch/delete multi-cluster resources
-    - interacting with any child clusters the same as local cluster
+  - providing a kubectl plugin, which can be installed with `kubectl krew install clusternet`
+  - consistent user experience with `kubectl`
+  - create/update/watch/delete multi-cluster resources
+  - interacting with any child clusters the same as local cluster
 - Client-go
-    - easy to integrate via
-      a [client-go wrapper](https://github.com/clusternet/clusternet/blob/main/examples/clientgo/READEME.md)
+  - easy to integrate via
+    a [client-go wrapper](https://github.com/clusternet/clusternet/blob/main/examples/clientgo/READEME.md)
 
 ## Architecture
 
@@ -102,14 +103,14 @@ Since `clusternet-hub` is running as an AA, please make sure that parent apiserv
 ## Kubernetes Version Skew
 
 `Clusternet` is compatible with multiple Kubernetes versions. For example, you could run `clusternet-hub` with
-Kubernetes v1.20.8, while the versions of child Kubernetes clusters could range from v1.18.x to v1.22.x.
+Kubernetes v1.20.8, while the versions of child Kubernetes clusters could range from v1.18.x to v1.23.x.
 
-| Version                  | Kubernetes v1.17.x |  v1.18.x | v1.19.x ~ v1.22.x   |
-| ------------------------ | ------------------ | -------- |---------------------|
-| Clusternet v0.5.0        | \*                 | \*       | ✓                   |
-| Clusternet v0.6.0        | \*                 | ✓        | ✓                   |
-| Clusternet v0.7.0        | \*                 | ✓        | ✓                   |
-| Clusternet HEAD (main)   | \*                 | ✓        | ✓                   |
+| Version                  | Kubernetes v1.17.x |  v1.18.x | v1.19.x ~ v1.23.x |
+| ------------------------ | ------------------ | -------- |-------------------|
+| Clusternet v0.5.0        | \*                 | \*       | ✓                 |
+| Clusternet v0.6.0        | \*                 | ✓        | ✓                 |
+| Clusternet v0.7.0        | \*                 | ✓        | ✓                 |
+| Clusternet HEAD (main)   | \*                 | ✓        | ✓                 |
 
 Note:
 
