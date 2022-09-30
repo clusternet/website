@@ -46,6 +46,7 @@ Clusternet is multiple platforms supported now, including `linux/amd64`, `linux/
     about [Kubernetes Version Skew](/docs/introduction/#kubernetes-version-skew))
   - visiting any managed clusters with dynamic RBAC rules (Learn more
     from [this tuorial](/docs/tutorials/cluster-management/visiting-child-clusters-with-rbac/))
+  - cluster auto-labelling based on [Node Feature Discovery](https://github.com/kubernetes-sigs/node-feature-discovery)
 - Application Coordinations
   - Cross-Cluster Scheduling
     - replication scheduling
