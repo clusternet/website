@@ -98,12 +98,14 @@ Clusternet 是一个轻量级插件，由“clusternet-agent”、“clusternet-
 `Clusternet` 兼容多个 Kubernetes 版本。 例如，您可以使用 Kubernetes v1.20.8 运行“clusternet-hub”，而子 Kubernetes 集群的版本范围
 可以从 v1.18.x 到 v1.23.x。
 
-| 版本                      | Kubernetes v1.17.x | v1.18.x | v1.19.x ~ v1.23.x |
-|-------------------------|--------------------|----------|-------------------|
-| Clusternet v0.5.0       | \*                 | \*       | ✓                 |
-| Clusternet v0.6.0       | \*                 | ✓        | ✓                 |
-| Clusternet v0.7.0       | \*                 | ✓        | ✓                 |
-| Clusternet HEAD (main)  | \*                 | ✓        | ✓                 |
+如果集群运行的 Kubernetes 版本高于 `v1.24.0`，请将 `Clusternet` 升级到至少 `v0.13.0` 版本。
+
+| 版本              | Kubernetes v1.17.x | v1.18.x | v1.19.x ~ v1.23.x | > = v1.24.x |
+|-------------------| ------------------ | ------- | ----------------- | ----------- |
+| Clusternet v0.5.0 | \*                 | \*      | ✓                 | \*          |
+| v0.6.0            | \*                 | ✓       | ✓                 | \*          |
+| v0.7.0 ~ v0.12.0  | \*                 | ✓       | ✓                 | \*          |
+| HEAD (main)       | \*                 | ✓       | ✓                 | ✓           |
 
 注:
 
