@@ -94,8 +94,8 @@ and `clusternet-hub`.
 
 - approving cluster registration requests and creating dedicated resources, such as namespaces, serviceaccounts and RBAC
   rules, for each child cluster;
-- serving as an **aggregated apiserver (AA)**, which is used to serve as a websocket server that maintain multiple
-  active websocket connections from child clusters;
+- serving as an **aggregated apiserver (AA)**, which is used to provide shadow APIs and serve as a websocket server that
+  maintain multiple active websocket connections from child clusters;
 - providing Kubernstes-styled API to redirect/proxy/upgrade requests to each child cluster;
 - coordinating and deploying applications to multiple clusters from a single set of APIs;
 
