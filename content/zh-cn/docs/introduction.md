@@ -85,7 +85,7 @@ Clusternet 是一个轻量级插件，由“clusternet-agent”、“clusternet-
 `clusternet-hub` 负责
 
 - 批准集群注册请求并为每个子集群创建专用资源，例如命名空间、服务帐户和 RBAC 规则;
-- 作为**aggregated apiserver (AA)**服务。用作 websocket 服务器，来维护子集群的多个活动 websocket 连接;
+- 作为**aggregated apiserver (AA)**服务。提供 shadow APIs，并用作 websocket 服务器，来维护子集群的多个活动 websocket 连接;
 - 提供 Kubernstes 风格的 API， 将请求重定向/代理/升级到每个子集群;
 - 利用 API， 协调和部署应用程序到多个集群;
 
