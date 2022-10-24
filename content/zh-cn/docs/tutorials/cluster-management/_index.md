@@ -1,5 +1,5 @@
 ---
-title: "Multi-Cluster Management"
+title: "多集群管理"
 weight: 1
-description: "Managing child clusters"
+description: "管理子集群"
 ---

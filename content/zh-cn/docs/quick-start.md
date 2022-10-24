@@ -67,7 +67,7 @@ clusternet-scheduler-8645f9d85b-vkw8r   1/1     Running   0          2m59s
 
 ## 检查集群注册
 
-请按照该教程[检查集群注册状态]((/docs/tutorials/cluster-management/checking-cluster-registration/))。
+请按照该教程[检查集群注册状态](/docs/tutorials/cluster-management/checking-cluster-registration/)。
 
 ## 将应用程序部署到子集群
 

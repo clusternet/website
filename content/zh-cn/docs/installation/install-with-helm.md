@@ -1,6 +1,6 @@
 ---
-title: "Installing Clusternet via Helm"
-description: "How to install Clusternet via Helm"
+title: "通过Helm安装Clusternet"
+description: "如何通过Helm安装Clusternet"
 date: 2022-01-17
 draft: false
 weight: 2
