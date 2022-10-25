@@ -55,7 +55,7 @@ sequenceDiagram
     participant NM as nfd-master<br>(in child cluster)
 
     %% Subscription
-    admin->>HK: Day 1:<br>Creates a Subscription<br>for NodeFeatureRule
+    admin->>HK: Day 0:<br>Creates a Subscription<br>for NodeFeatureRule
 
     %% Cluster Status update
     loop Roll Update
@@ -65,7 +65,7 @@ sequenceDiagram
         A->>HK: Patches ManagerCluster's<br>Labels with ClusterFeatures
     end
 
-    admin->>HK: Day 2:<br>Creates a Subscription<br>with Cluster Feature Labels<br>in clusterAffinity
+    admin->>HK: Day 1:<br>Creates a Subscription<br>with Cluster Feature Labels<br>in clusterAffinity
 ```
 
 Before getting started, custom resource
