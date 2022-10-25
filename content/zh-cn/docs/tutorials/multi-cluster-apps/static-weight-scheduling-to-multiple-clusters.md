@@ -1,21 +1,18 @@
 ---
-title: "Deploying Applications to Multiple Clusters with Static Weight Scheduling"
-description: "Scheduling applications of multiple replicas to several clusters by static cluster weight"
+title: "使用静态权重调度将应用部署到多个集群"
+description: "通过集群的静态权重在多个集群上调度应用的多个副本"
 date: 2022-04-11
 draft: false
 weight: 2
 ---
 
-This tutorial will walk you through how to deploy applications to multiple clusters with static weight scheduling. It is
-different from replication scheduling. When using static weight scheduling, the replicas of an application will be split
-based on cluster weights. For example, if you want to deploy a `Deployment` with 6 replicas to 2 clusters ("cluster-01"
-with weight 1, "cluster-02" with weight 2), then "cluster-01" will run such a `Deployment` with 2 replicas, "cluster-02"
-runs the other 4 replicas.
+本教程将带您了解如何使用静态权重调度(`static weight scheduling`)将应用程序部署到多个集群。
 
-## Defining Your Applications
+它不同于复制调度(`replication scheduling`)。使用静态权重调度时，应用程序的副本将根据集群权重进行拆分。例如，如果您要将一个具有6个副本的`Deployment`部署到2个集群(“cluster-01”的权重为1，“cluster-02”的权重为2)，那么“cluster-01”将运行这样一个具有2个副本的`Deployment`，“cluster-02”将运行另外4个副本。
 
-Let's see an example using static weight scheduling. Below `Subscription` "static-dividing-scheduling-demo" defines the
-target child clusters to be distributed to, and the resources to be deployed with.
+## 定义应用
+
+让我们看一个使用静态权重调度的例子。在下面"static-dividing-scheduling-demo" `Subscription`中定义了要分发到的目标子集群，以及要部署的资源。
 
 ```yaml
 # examples/static-dividing-scheduling/subscription.yaml
@@ -51,10 +48,9 @@ spec:
       namespace: bar
 ```
 
-The `Deployment` bar/my-nginx above will run in two clusters with a total of 6 replicas, while 2 replicas run in cluster
-with ID `dc91021d-2361-4f6d-a404-7c33b9e01118`, 4 replicas in cluster with ID `5f9da921-0437-4fea-a89d-42aa1ede9b25`.
+上面的 bar/my-nginx `Deployment`将在两个集群中运行，总共有6个副本，而2个副本在ID为`dc91021d-2361-4f6d-a404-7c33b9e01118`的集群中运行, 有4个副本在ID为`5f9da921-0437-4fea-a89d-42aa1ede9b25`的集群中。
 
-You can get the scheduling result by checking the status of Subscription `static-dividing-scheduling-demo`.
+您可以通过检查`static-dividing-scheduling-demo` Subscription的状态来获得调度结果。
 
 ```yaml
 bindingClusters:
@@ -69,16 +65,13 @@ bindingClusters:
     v1/Service/qux/my-nginx-svc: []
 ```
 
-Before applying this `Subscription`, please
-modify [examples/static-dividing-scheduling/subscription.yaml](https://github.com/clusternet/clusternet/blob/main/examples/static-dividing-scheduling/subscription.yaml)
-with your clusterID.
+在部署该`Subscription`前, 请将文件 [examples/static-dividing-scheduling/subscription.yaml](https://github.com/clusternet/clusternet/blob/main/examples/static-dividing-scheduling/subscription.yaml) 中的集群ID修改为你的集群ID.
 
-If you want to apply overrides per cluster, please follow [How to Set Overrides in Clusternet](/docs/tutorials/multi-cluster-apps/setting-overrides/).
+如果你想在每个集群中使用`overrides`, 请参考[How to Set Overrides in Clusternet](/docs/tutorials/multi-cluster-apps/setting-overrides/).
 
-## Applying Your Applications
+## 部署应用
 
-After installing kubectl plugin [kubectl-clusternet](/docs/kubectl-clusternet/), you could run
-commands below to distribute this application to child clusters.
+安装完[kubectl-clusternet](/docs/kubectl-clusternet/)插件后, 您可以运行下面的命令将此应用程序分发到子群中。
 
 ```bash
 $ kubectl clusternet apply -f examples/static-dividing-scheduling/
@@ -90,5 +83,4 @@ $ # or
 $ # kubectl-clusternet apply -f examples/static-dividing-scheduling/
 ```
 
-You can [check aggregated status](docs/tutorials/multi-cluster-apps/aggregated-status/) of feeds/resources running in
-each child clusters.
+你可以对每个子集群中运行的feeds/resources[检查聚合状态](docs/tutorials/multi-cluster-apps/aggregated-status/)。
