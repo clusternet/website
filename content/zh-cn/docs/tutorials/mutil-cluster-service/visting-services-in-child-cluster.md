@@ -42,13 +42,12 @@ spec:
     - 42.42.42.42
   type: "ClusterSetIP"
   ports:
-    - name: http
-      protocol: TCP
-      port: 80
+  - port: 80
+    protocol: TCP
   sessionAffinity: None
 ```
 ```shell
-$ kubectl create -f examples/scheduling-with-service-expose/service-import.yaml
+$ kubectl create -f examples/scheduling-with-mcs-api/service-import.yaml
 serviceimport.multicluster.x-k8s.io/my-svc created
 ```
 ## 3. 检验服务和endpointslice资源.
@@ -77,8 +76,7 @@ spec:
   - IPv4
   ipFamilyPolicy: SingleStack
   ports:
-  - name: http
-    port: 80
+  - port: 80
     protocol: TCP
     targetPort: 80
   sessionAffinity: None
