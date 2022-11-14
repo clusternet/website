@@ -111,10 +111,10 @@ Kubernetes v1.20.8, while the versions of child Kubernetes clusters could range 
 For clusters running Kubernetes with version upper than `v1.24.0`, please upgrade `Clusternet` to no less than `v0.13.0`.
 
 | Version           | Kubernetes v1.17.x | v1.18.x | v1.19.x ~ v1.23.x | > = v1.24.x |
-| ----------------- | ------------------ | ------- | ----------------- | ----------- |
+|-------------------| ------------------ | ------- | ----------------- | ----------- |
 | Clusternet v0.5.0 | \*                 | \*      | ✓                 | \*          |
-| v0.6.0            | \*                 | ✓       | ✓                 | \*          |
-| v0.7.0 ~ v0.12.0  | \*                 | ✓       | ✓                 | \*          |
+| v0.6.0 ~ v0.12.0  | \*                 | ✓       | ✓                 | \*          |
+| >= v0.13.0        | \*                 | ✓       | ✓                 | ✓           |
 | HEAD (main)       | \*                 | ✓       | ✓                 | ✓           |
 
 Note:
