@@ -1,6 +1,6 @@
 ---
-title: "本地化和全球化"
-description: "如何理解本地化和全球化"
+title: "Localization 和 Globalization"
+description: 如何理解 Localization 和 Globalization
 date: 2022-11-15
 draft: false
 collapsible: false
