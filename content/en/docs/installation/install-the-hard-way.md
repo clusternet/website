@@ -25,6 +25,13 @@ Please choose the fastest image registry to use.
 kubectl apply -f deploy/hub
 ```
 
+{{% alert title="Note on kube-apiserver" color="primary" %}}
+Please refer to [Kubernetes Version Skew](../../introduction/#kubernetes-version-skew) to see whether the Kubernetes
+versions are supported.
+Please also note that whether the kube-apiserver running in the parent cluster should be configured with flag
+`--aggregator-reject-forwarding-redirect=false`.
+{{% /alert %}}
+
 Next, you need to create a token for cluster registration, which will be used later by
 `clusternet-agent`. Either a bootstrap token or a service account token is okay.
 

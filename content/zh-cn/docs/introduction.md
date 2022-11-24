@@ -116,3 +116,18 @@ Clusternet 是一个轻量级插件，由“clusternet-agent”、“clusternet-
 
 * `✓` Clusternet 与此 Kubernetes 版本兼容。
 * `*` Clusternet 不保证支持该 Kubernetes 版本。 将需要更多兼容的测试。
+
+{{% alert title="Note" color="warning" %}}
+Special Flag Setting in `kube-apiserver`
+
+To fully use the features of Clusternet, please remember to set the flag `--aggregator-reject-forwarding-redirect=false`
+for the `kube-apiserver` running in the parent cluster.
+
+This is **ONLY** applicable for below Kubernetes versions.
+
+- kube-apiserver v1.26+ ~ latest
+- kube-apiserver >= v1.25.1
+- kube-apiserver >= v1.24.5
+- kube-apiserver >= v1.23.11
+- kube-apiserver >= v1.22.14
+{{% /alert %}}
