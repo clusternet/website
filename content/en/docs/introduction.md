@@ -126,3 +126,18 @@ Note:
 
 * `✓` Clusternet is compatible with this Kubernetes version.
 * `*` Clusternet has no guarantees to support this Kubernetes version. More compatible tests will be needed.
+
+{{% alert title="Note" color="warning" %}}
+Special Flag Setting in `kube-apiserver`
+
+To fully use the features of Clusternet, please remember to set the flag `--aggregator-reject-forwarding-redirect=false`
+for the `kube-apiserver` running in the parent cluster.
+
+This is **ONLY** applicable for below Kubernetes versions.
+
+- kube-apiserver v1.26+ ~ latest
+- kube-apiserver >= v1.25.1
+- kube-apiserver >= v1.24.5
+- kube-apiserver >= v1.23.11
+- kube-apiserver >= v1.22.14
+{{% /alert %}}

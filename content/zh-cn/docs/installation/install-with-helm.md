@@ -23,6 +23,13 @@ The container images are hosted on both [ghcr.io](https://github.com/orgs/cluste
 Please choose the fastest image registry to use.
 {{% /alert %}}
 
+{{% alert title="Note on kube-apiserver" color="primary" %}}
+Please refer to [Kubernetes Version Skew](../../introduction/#kubernetes-版本支持) to see whether the Kubernetes
+versions are supported.
+Please also note that whether the kube-apiserver running in the parent cluster should be configured with flag
+`--aggregator-reject-forwarding-redirect=false`.
+{{% /alert %}}
+
 You can then run `helm search repo clusternet` to see the charts.
 
 - [installing `clusternet-hub` to parent cluster](https://github.com/clusternet/charts/tree/main/charts/clusternet-hub)

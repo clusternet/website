@@ -27,6 +27,13 @@ weight: 3
 kubectl apply -f deploy/hub
 ```
 
+{{% alert title="Note on kube-apiserver" color="primary" %}}
+Please refer to [Kubernetes Version Skew](../../introduction/#kubernetes-版本支持) to see whether the Kubernetes
+versions are supported.
+Please also note that whether the kube-apiserver running in the parent cluster should be configured with flag
+`--aggregator-reject-forwarding-redirect=false`.
+{{% /alert %}}
+
 接下来，您需要为群集注册创建一个 token，随后会被 clusternet-agent 使用到。`bootstrap token` 或 `service account token`都可以。
 
 - 如果支持`bootstrapping`身份验证，即在父集群中运行的 `kube-apiserver` 显式地设置了 `--enable-bootstrap-token-auth=true` ，
