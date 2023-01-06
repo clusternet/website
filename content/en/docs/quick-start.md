@@ -36,7 +36,8 @@ cd clusternet
 Run the following script,
 
 ```bash
-hack/local-running.sh
+cd hack
+./local-running.sh
 ```
 
 If everything goes well, you will see the messages as follows:
