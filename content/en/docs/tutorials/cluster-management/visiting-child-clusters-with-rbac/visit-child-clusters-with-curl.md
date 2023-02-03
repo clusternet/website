@@ -6,6 +6,9 @@ draft: false
 weight: 2
 ---
 
+Before moving forward, please follow [this guide](/docs/configuration/aggregator-forwarding-redirect/) to make sure
+that redirecting requests by `clusternet-hub` are supported in your parent cluster.
+
 Below is a simple snippet to show how to list namespaces in a child cluster with `curl`.
 
 ```bash

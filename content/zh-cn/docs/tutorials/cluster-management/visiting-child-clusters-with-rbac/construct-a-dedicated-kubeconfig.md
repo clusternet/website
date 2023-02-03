@@ -6,6 +6,9 @@ draft: false
 weight: 3
 ---
 
+Before moving forward, please follow [this guide](/docs/configuration/aggregator-forwarding-redirect/) to make sure
+that redirecting requests by `clusternet-hub` are supported in your parent cluster.
+
 您需要按照以下 **2 个步骤** 来构建专用 kubeconfig 来使用 `kubectl` 访问子集群。
 
 ## 步骤一: 修改服务器地址
