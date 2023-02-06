@@ -6,6 +6,9 @@ draft: false
 weight: 3
 ---
 
+Before moving forward, please follow [this guide](/docs/configuration/aggregator-forwarding-redirect/) to make sure
+that redirecting requests by `clusternet-hub` are supported in your parent cluster.
+
 You need to follow below **2 steps** to construct a dedicated kubeconfig to access a child cluster with `kubectl`.
 
 ## Step 1: Modify Server URL

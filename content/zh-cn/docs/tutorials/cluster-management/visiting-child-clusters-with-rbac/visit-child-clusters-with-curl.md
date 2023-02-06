@@ -6,6 +6,9 @@ draft: false
 weight: 2
 ---
 
+Before moving forward, please follow [this guide](/docs/configuration/aggregator-forwarding-redirect/) to make sure
+that redirecting requests by `clusternet-hub` are supported in your parent cluster.
+
 下面是一个简单的片段，展示了如何使用`curl`列出子集群中的命名空间。
 
 ```bash

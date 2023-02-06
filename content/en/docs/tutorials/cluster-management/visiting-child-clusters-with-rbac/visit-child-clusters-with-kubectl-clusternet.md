@@ -6,6 +6,9 @@ draft: false
 weight: 1
 ---
 
+Before moving forward, please follow [this guide](/docs/configuration/aggregator-forwarding-redirect/) to make sure
+that redirecting requests by `clusternet-hub` are supported in your parent cluster.
+
 First,
 please [install/upgrade `kubectl-clusternet` plugin](https://github.com/clusternet/kubectl-clusternet#installation) with
 a minimum required version `v0.5.0`.
