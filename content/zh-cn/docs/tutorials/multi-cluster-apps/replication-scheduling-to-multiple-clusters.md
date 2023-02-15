@@ -5,11 +5,7 @@ draft: false
 weight: 1
 description: "将应用调度到多个集群"
 ---
-
-This tutorial will walk you through how to deploy applications to multiple clusters with replication scheduling, which
-is the **default scheduling strategy**. Replication scheduling means every matching cluster will run a replicated and
-completed instance of an application. For example, if you want to deploy a `Deployment` with 5 replicas to 2 clusters,
-then every cluster will run such a `Deployment` with 5 replicas respectively.
+本教程将向您介绍如何使用**复制调度(replication scheduling)**(默认的调度策略)将应用程序部署到多个集群。复制调度意味着每个匹配的集群将运行一个复制且完整的应用实例。例如，如果您希望将一个包含5个副本的`Deployment`部署到2个集群，那么每个集群将分别运行一个包含5个副本的`Deployment`.
 
 ## 定义你的应用
 

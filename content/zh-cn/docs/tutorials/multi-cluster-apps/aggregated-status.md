@@ -1,6 +1,6 @@
 ---
-title: "Checking Aggregated Status"
-description: "Aggregating resource status from child clusters"
+title: "检查聚合状态"
+description: "从子群中汇总资源状态"
 date: 2022-07-13
 draft: false
 weight: 8
