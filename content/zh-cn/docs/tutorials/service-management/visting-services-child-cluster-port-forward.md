@@ -1,6 +1,6 @@
 ---
-title: "Locally Visit Services Running in Child Clusters"
-description: "How to visit services running in child clusters as locally"
+title: "本地访问子集群中运行的服务"
+description: "如何以本地方式访问子集群中运行的服务"
 date: 2022-08-22
 draft: false
 weight: 1

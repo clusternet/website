@@ -1,6 +1,6 @@
 ---
-title: "Deploying Applications to Multiple Clusters with Dynamic Scheduling"
-description: "Scheduling applications of multiple replicas to several clusters by cluster capacity"
+title: "使用动态调度将应用程序部署到多个集群"
+description: "基于集群容量调度多个副本的应用程序到多个集群"
 date: 2022-07-13
 draft: false
 weight: 3
