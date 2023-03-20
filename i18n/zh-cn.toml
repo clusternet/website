@@ -1,0 +1,6 @@
+[main_copyright_notice]
+other = """Linux 基金会&reg;。保留所有权利。Linux 基金会已注册并使用商标。如需了解 Linux 基金会的商标列表，请访问<a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">商标使用页面</a>"""
+
+[main_documentation_license]
+other = """The Clusternet 作者 | 文档发布基于 <a href="https://github.com/clusternet/website/blob/main/LICENSE" class="light-text">CC BY 4.0</a>
+授权许可"""
