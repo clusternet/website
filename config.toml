@@ -99,7 +99,10 @@ section = ["HTML", "RSS"]
 
 [params]
 copyright = "The Clusternet Authors"
+copyright_linux = "The Linux Foundation"
 #privacy_policy = "https://policies.google.com/privacy"
+trademark = "https://www.linuxfoundation.org/trademark-usage/"
+license = "https://github.com/clusternet/clusternet/blob/main/LICENSE"
 
 # First one is picked as the Twitter card image if not set on page.
 # images = ["images/project-illustration.png"]

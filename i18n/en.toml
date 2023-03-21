@@ -1,0 +1,5 @@
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+
+[main_documentation_license]
+other = """The Clusternet Authors | Documentation Distributed under <a href="https://github.com/clusternet/website/blob/main/LICENSE" class="light-text">CC BY 4.0</a>"""
