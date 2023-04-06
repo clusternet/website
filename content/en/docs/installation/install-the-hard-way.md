@@ -59,6 +59,12 @@ Next, you need to create a token for cluster registration, which will be used la
 kubectl apply -f deploy/scheduler
 ```
 
+## Deploying `clusternet-controller-manager` in parent cluster (since v0.15.0)
+
+```bash
+kubectl apply -f deploy/controller-manager
+```
+
 ## Deploying `clusternet-agent` in child cluster
 
 `clusternet-agent` runs in child cluster and helps register self-cluster to parent cluster.
