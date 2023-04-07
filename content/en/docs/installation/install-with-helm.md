@@ -7,7 +7,8 @@ weight: 2
 collapsible: false
 ---
 
-You need to deploy `clusternet-agent` in child clusters, `clusternet-hub` and `clusternet-scheduler` in parent cluster.
+You need to deploy `clusternet-agent` in child clusters, `clusternet-hub`, `clusternet-scheduler` and
+`clusternet-controller-manager` (since v0.15.0) in parent cluster.
 You can also try to [install `Clusternet` manually](/docs/getting-started/install-the-hard-way/).
 
 > [Helm](https://helm.sh) must be installed to use the charts. Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
@@ -34,6 +35,7 @@ You can then run `helm search repo clusternet` to see the charts.
 
 - [installing `clusternet-hub` to parent cluster](https://github.com/clusternet/charts/tree/main/charts/clusternet-hub)
 - [installing `clusternet-scheduler` to parent cluster](https://github.com/clusternet/charts/tree/main/charts/clusternet-scheduler)
+- [installing `clusternet-controller-manager` (since v0.15.0) to parent cluster](https://github.com/clusternet/charts/tree/main/charts/clusternet-controller-manager)
 - [installing `clusternet-agent` to child clusters](https://github.com/clusternet/charts/tree/main/charts/clusternet-agent)
 
 Please follow [this guide](/docs/tutorials/cluster-management/checking-cluster-registration/) to check cluster registrations.

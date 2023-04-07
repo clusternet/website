@@ -59,6 +59,12 @@ Please also note that whether the kube-apiserver running in the parent cluster s
 kubectl apply -f deploy/scheduler
 ```
 
+## 在父集群中部署 `clusternet-controller-manager` (从 v0.15.0 版本起)
+
+```bash
+kubectl apply -f deploy/controller-manager
+```
+
 ## 在子集群中部署 `clusternet-agent`
 
 `clusternet-agent` 在子群集中运行，并帮助将自群集注册到父群集。
