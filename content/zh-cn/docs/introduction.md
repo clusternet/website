@@ -75,24 +75,28 @@ Clusternet现在支持多个平台，包括`linux/amd64`、`linux/arm64`、`linu
 
 ![](/images/clusternet-arch.png)
 
-Clusternet 是一个轻量级插件，由“clusternet-agent”、“clusternet-scheduler”和“clusternet-hub”三个组件组成.
+Clusternet 是一个轻量级插件，由 "clusternet-agent"、"clusternet-scheduler"、"clusternet-controller-manager"（自 v0.15.0 起）和
+"clusternet-hub" 四个组件组成.
 
 `clusternet-agent` 负责
 
-- 自动将当前集群注册到父集群作为子集群，也称为“ManagedCluster”;
+- 自动将当前集群注册到父集群作为子集群，也称为"ManagedCluster";
 - 报告当前集群的心跳，包括Kubernetes版本、运行平台、`healthz`/`readyz`/`livez`、状态等;
 - 建立一个 websocket 连接，它通过单个 TCP 连接来提供全双工通信通道到父集群;
 
 `clusternet-scheduler` 负责
 
-- 基于`SchedulingStrategy`来调度资源/feeds到匹配的子集群;
+- 基于 `SchedulingStrategy` 来调度资源/feeds到匹配的子集群;
+
+`clusternet-controller-manager`（自 v0.15.0 起）负责
+
+- 批准集群注册请求并为每个子集群创建专用资源，例如命名空间、服务帐户和 RBAC 规则;
+- 利用 API，协调和部署应用程序到多个集群;
 
 `clusternet-hub` 负责
 
-- 批准集群注册请求并为每个子集群创建专用资源，例如命名空间、服务帐户和 RBAC 规则;
 - 作为**aggregated apiserver (AA)** 服务。提供 shadow APIs，并用作 websocket 服务器，来维护子集群的多个活动 websocket 连接;
-- 提供 Kubernstes 风格的 API， 将请求重定向/代理/升级到每个子集群;
-- 利用 API， 协调和部署应用程序到多个集群;
+- 提供 Kubernetes 风格的 API， 将请求重定向/代理/升级到每个子集群;
 
 {{% alert title="Note" color="warning" %}}
 由于 `clusternet-hub` 是作为 AA 服务运行，请确保父 apiserver 可以访问 `clusternet-hub` 服务。
