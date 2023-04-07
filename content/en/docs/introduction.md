@@ -80,8 +80,8 @@ Clusternet is multiple platforms supported now, including `linux/amd64`, `linux/
 
 ![](/images/clusternet-arch.png)
 
-Clusternet is a lightweight addon that consists of three components, `clusternet-agent`, `clusternet-scheduler`
-and `clusternet-hub`.
+Clusternet is a lightweight addon that consists of four components, `clusternet-agent`, `clusternet-scheduler`,
+`clusternet-controller-manager` (added since v0.15.0) and `clusternet-hub`.
 
 `clusternet-agent` is responsible for
 
@@ -95,14 +95,15 @@ and `clusternet-hub`.
 
 - scheduling resources/feeds to matched child clusters based on `SchedulingStrategy`;
 
-`clusternet-hub` is responsible for
-
+`clusternet-controller` (added since v0.15.0) is responsible for
 - approving cluster registration requests and creating dedicated resources, such as namespaces, serviceaccounts and RBAC
   rules, for each child cluster;
+- coordinating and deploying applications to multiple clusters from a single set of APIs;
+
+`clusternet-hub` is responsible for
 - serving as an **aggregated apiserver (AA)**, which is used to provide shadow APIs and serve as a websocket server that
   maintain multiple active websocket connections from child clusters;
-- providing Kubernstes-styled API to redirect/proxy/upgrade requests to each child cluster;
-- coordinating and deploying applications to multiple clusters from a single set of APIs;
+- providing Kubernetes-styled API to redirect/proxy/upgrade requests to each child cluster;
 
 {{% alert title="Note" color="warning" %}}
 Since `clusternet-hub` is running as an AA, please make sure that parent apiserver could visit the `clusternet-hub` service.
