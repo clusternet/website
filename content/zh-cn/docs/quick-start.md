@@ -15,10 +15,36 @@ weight: 2
 
 ## 准备工作
 
-- [Helm](https://helm.sh/) 版本 v3.8.0
-- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) 版本 v1.23.4
-- [kind](https://kind.sigs.k8s.io/) 版本 v0.11.1
-- [Docker](https://docs.docker.com/) 版本 v20.10.2
+- [Helm](https://helm.sh/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+- [kubectl 插件 "clusternet"](/docs/kubectl-clusternet)
+- [kind](https://kind.sigs.k8s.io/)
+- [Docker](https://docs.docker.com/)
+
+### Some Known Issues
+
+#### Pod errors due to "too many open files"
+
+You may encounter that some pods fail to get running and the logs of these pods complain "too many open files".
+
+This may be caused by running out of [inotify](https://linux.die.net/man/7/inotify) resources.
+Resource limits are defined by `fs.inotify.max_user_watches` and `fs.inotify.max_user_instances` system variables. For
+example, in Ubuntu these default to `8192` and `128` respectively, which is not enough to create multiple kind
+clusters with many pods.
+
+To increase these limits temporarily run the following commands on the host:
+
+```bash
+sudo sysctl fs.inotify.max_user_watches=524288
+sudo sysctl fs.inotify.max_user_instances=512
+```
+
+To make the changes persistent, edit the file `/etc/sysctl.conf` and add these lines:
+
+```
+fs.inotify.max_user_watches = 524288
+fs.inotify.max_user_instances = 512
+```
 
 ## 项目准备
 
@@ -57,12 +83,17 @@ CURRENT   NAME     CLUSTER       AUTHINFO      NAMESPACE
           child2   kind-child2   kind-child2   
           child3   kind-child3   kind-child3   
 *         parent   kind-parent   kind-parent
-# kubectl get pod -n clusternet-system 
-NAME                                    READY   STATUS    RESTARTS   AGE
-clusternet-hub-7d4bf55fbd-9lv9h         1/1     Running   0          3m2s
-clusternet-scheduler-8645f9d85b-cdlr5   1/1     Running   0          2m59s
-clusternet-scheduler-8645f9d85b-fmfln   1/1     Running   0          2m59s
-clusternet-scheduler-8645f9d85b-vkw8r   1/1     Running   0          2m59s
+# kubectl get pod -n clusternet-system
+NAME                                            READY   STATUS    RESTARTS   AGE
+clusternet-controller-manager-5b54d5f95-bnq8l   1/1     Running   0          2m
+clusternet-controller-manager-5b54d5f95-kn6mw   1/1     Running   0          2m
+clusternet-controller-manager-5b54d5f95-pkmc6   1/1     Running   0          2m
+clusternet-hub-6c7bbcbd68-flbwm                 1/1     Running   0          2m3s
+clusternet-hub-6c7bbcbd68-m4rkx                 1/1     Running   0          2m3s
+clusternet-hub-6c7bbcbd68-rkw5c                 1/1     Running   0          2m3s
+clusternet-scheduler-8675d64884-4r8rx           1/1     Running   0          2m1s
+clusternet-scheduler-8675d64884-7nx5d           1/1     Running   0          2m1s
+clusternet-scheduler-8675d64884-8c8f5           1/1     Running   0          2m1s
 ```
 
 ## 检查集群注册
@@ -71,4 +102,5 @@ clusternet-scheduler-8645f9d85b-vkw8r   1/1     Running   0          2m59s
 
 ## 将应用程序部署到子集群
 
-请按照我们的[交互式教程](/docs/tutorials/multi-cluster-apps/)从父集群中将应用程序部署到上述三个子集群中。如果你在父集群中安装了 `clusternet-agent`，那么它也可以将自己注册为子集群。
+请按照我们的[交互式教程](/docs/tutorials/multi-cluster-apps/)从父集群中将应用程序部署到上述三个子集群中。
+如果你在父集群中安装了 `clusternet-agent`，那么它也可以将自己注册为子集群。
