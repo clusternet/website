@@ -19,7 +19,7 @@ description: "更加深入的理解 Clusternet 是如何工作的"
 - `Clusternet` 提供了***两个阶段优先级***的覆盖策略。
   `Localization` 和 `Globalization` 定义了优先级覆盖策略，其中较低的数字被认为是较低的优先级。
   `Localization` 是命名空间范围的资源，而 `Globalization`
-  是集群范围的。可以参考这篇[在 Clusternet 中如何设置覆盖值](/docs/tutorials/multi-cluster-apps/setting-overrides/).
+  是集群范围的。可以参考这篇[在 Clusternet 中如何设置覆盖值](/zh-cn/docs/tutorials/multi-cluster-apps/setting-overrides/).
 - `Base` 对象将被渲染为 `Description` 对象，并应用了 `Globalization` 和 `Localization` 设置。
   `Description` 是要部署到目标子集群的最终资源。
 

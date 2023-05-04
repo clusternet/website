@@ -19,7 +19,7 @@ Globalization (优先级 : 100) -> Globalization (优先级: 600) -> Localizatio
 - `ApplyNow` 将立即为匹配的对象应用覆盖，包括那些已经填充的对象。
 - 默认覆盖策略`ApplyLater`只会在下次更新时应用覆盖匹配的对象（包括更新在 `Subscription`、`HelmChart` 等）或新创建的对象。
 
-Here you can refer below samples to learn more,
+可以参考以下示例,
 
 - [Localization 例子](https://github.com/clusternet/clusternet/blob/main/examples/replication-scheduling/localization.yaml)
 - [Globalization 例子](https://github.com/clusternet/clusternet/blob/main/examples/replication-scheduling/globalization.yaml)

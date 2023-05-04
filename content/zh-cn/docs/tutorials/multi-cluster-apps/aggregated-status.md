@@ -6,9 +6,7 @@ draft: false
 weight: 8
 ---
 
-In Clusternet, you can check the aggregated status of all deployed resources by visiting the status of Subscription. For
-every feed/resource, you can check the detailed status (field `feedStatusDetails`) per cluster and the summarized
-status (field `feedStatusSummary`) of all clusters in `status.aggregatedStatuses`.
+在Clusternet中，您可以通过访问Subscription的状态来检查所有已部署资源的聚合状态。对于每个 feed/resource, 您可以检查每个集群的详细状态 (field `feedStatusDetails`) 以及`status.aggregatedStatuses`中所有集群的汇总状态(field `feedStatusSummary`)。
 
 ```yaml
 status:
@@ -88,5 +86,5 @@ status:
   specHash: 3893382778
 ```
 
-From above example, we can see Deployment `qux/my-nginx` with total 3 replicas has been deployed to 2 clusters.
-From `feedStatusSummary`, we can see total 3 replicas are available and running healthy.
+使用上述示例, 我们可以看到 `qux/my-nginx` 的3个副本已经被部署到2个集群之中。
+从 `feedStatusSummary`字段可以看出, 这 3 个副本已经可用，并且运行正常。
