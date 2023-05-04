@@ -17,29 +17,27 @@ weight: 2
 
 - [Helm](https://helm.sh/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-- [kubectl 插件 "clusternet"](/docs/kubectl-clusternet)
+- [kubectl 插件 "clusternet"](/zh-cn/docs/kubectl-clusternet)
 - [kind](https://kind.sigs.k8s.io/)
 - [Docker](https://docs.docker.com/)
 
-### Some Known Issues
+### 一些已知问题
 
-#### Pod errors due to "too many open files"
+#### 由于 "too many open files" 导致的pod错误
 
-You may encounter that some pods fail to get running and the logs of these pods complain "too many open files".
+你可能会发现一些pod无法运行，这些pod的日志中显示 "too many open files".
 
-This may be caused by running out of [inotify](https://linux.die.net/man/7/inotify) resources.
-Resource limits are defined by `fs.inotify.max_user_watches` and `fs.inotify.max_user_instances` system variables. For
-example, in Ubuntu these default to `8192` and `128` respectively, which is not enough to create multiple kind
-clusters with many pods.
+这种现象可能是由于 [inotify](https://linux.die.net/man/7/inotify) 资源耗尽导致的.这种资源的限制在 `fs.inotify.max_user_watches` 和 `fs.inotify.max_user_instances` 这两个系统变量中定义. 例如, 
+在 Ubuntu 系统中，这些变量的默认值分别为 `8192` 和 `128`, 这不足以创建多种包含多个pod的k8s cluster。
 
-To increase these limits temporarily run the following commands on the host:
+临时提高此资源的限制，可以在主机上运行以下命令:
 
 ```bash
 sudo sysctl fs.inotify.max_user_watches=524288
 sudo sysctl fs.inotify.max_user_instances=512
 ```
 
-To make the changes persistent, edit the file `/etc/sysctl.conf` and add these lines:
+如果要固化这项修改， 请编辑这个文件 `/etc/sysctl.conf`，添加以下几行内容:
 
 ```
 fs.inotify.max_user_watches = 524288
@@ -98,9 +96,9 @@ clusternet-scheduler-8675d64884-8c8f5           1/1     Running   0          2m1
 
 ## 检查集群注册
 
-请按照该教程[检查集群注册状态](/docs/tutorials/cluster-management/checking-cluster-registration/)。
+请按照该教程[检查集群注册状态](/zh-cn/docs/tutorials/cluster-management/checking-cluster-registration/)。
 
 ## 将应用程序部署到子集群
 
-请按照我们的[交互式教程](/docs/tutorials/multi-cluster-apps/)从父集群中将应用程序部署到上述三个子集群中。
+请按照我们的[交互式教程](/zh-cn/docs/tutorials/multi-cluster-apps/)从父集群中将应用程序部署到上述三个子集群中。
 如果你在父集群中安装了 `clusternet-agent`，那么它也可以将自己注册为子集群。

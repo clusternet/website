@@ -67,11 +67,11 @@ bindingClusters:
 
 在部署该`Subscription`前, 请将文件 [examples/static-dividing-scheduling/subscription.yaml](https://github.com/clusternet/clusternet/blob/main/examples/static-dividing-scheduling/subscription.yaml) 中的集群ID修改为你的集群ID.
 
-如果你想在每个集群中使用`overrides`, 请参考[How to Set Overrides in Clusternet](/docs/tutorials/multi-cluster-apps/setting-overrides/).
+如果你想在每个集群中使用`overrides`, 请参考[在 Clusternet 中如何设置 Overrides](/zh-cn/docs/tutorials/multi-cluster-apps/setting-overrides/).
 
 ## 部署应用
 
-安装完[kubectl-clusternet](/docs/kubectl-clusternet/)插件后, 您可以运行下面的命令将此应用程序分发到子群中。
+安装完[kubectl-clusternet](/zh-cn/docs/kubectl-clusternet/)插件后, 您可以运行下面的命令将此应用程序分发到子群中。
 
 ```bash
 $ kubectl clusternet apply -f examples/static-dividing-scheduling/
@@ -83,4 +83,4 @@ $ # or
 $ # kubectl-clusternet apply -f examples/static-dividing-scheduling/
 ```
 
-你可以对每个子集群中运行的feeds/resources[检查聚合状态](docs/tutorials/multi-cluster-apps/aggregated-status/)。
+你可以对每个子集群中运行的feeds/resources[检查聚合状态](/zh-cn/docs/tutorials/multi-cluster-apps/aggregated-status/)。

@@ -58,7 +58,7 @@ Clusternet 也支持使用在 Helm Chart 中使用[OCI标准的镜像仓库仓�
 
 ## 应用你的应用程序
 
-安装 kubectl 插件 [kubectl-clusternet](/docs/kubectl-clusternet/) 后，您可以运行下面的命令将此应用程序分发到子集群。
+安装 kubectl 插件 [kubectl-clusternet](/zh-cn/docs/kubectl-clusternet/) 后，您可以运行下面的命令将此应用程序分发到子集群。
 
 ```bash
 $ kubectl clusternet apply -f examples/replication-scheduling/
@@ -71,7 +71,7 @@ $ # or
 $ # kubectl-clusternet apply -f examples/replication-scheduling/
 ```
 
-你可以查看各个子集群中[汇聚的资源状态](docs/tutorials/multi-cluster-apps/aggregated-status/)。
+你可以查看各个子集群中[汇聚的资源状态](/zh-cn/docs/tutorials/multi-cluster-apps/aggregated-status/)。
 
 ## 检查 Subscription 状态
 

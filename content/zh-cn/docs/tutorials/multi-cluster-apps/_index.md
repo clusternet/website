@@ -11,15 +11,9 @@ Clusternet支持通过一组API将应用程序从托管集群部署到多个集�
 {{% /alert %}}
 
 {{% alert title="Note" color="primary" %}}
-Admission webhooks could be configured in parent cluster, but please make
-sure that [dry-run](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#side-effects) mode
-is supported in these webhooks. At the same time, a webhook must explicitly indicate that it will not have side-effects
-when running with `dryRun`. That
-is [`sideEffects`](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#side-effects)
-must be set to `None` or `NoneOnDryRun`.
+Admission webhooks可以在父集群中进行配置, 但是请确保这些webhook支持 [dry-run](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#side-effects) 模式. 同时, webhook必须明确表示其在`dryRun`模式下运行时没有副作用. 即其 [`sideEffects`](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#side-effects)参数必须设置为 `None` 或 `NoneOnDryRun`.
 
-While, these webhooks could be configured per child cluster without above limitations as well.
+尽管如此，这些webhook也可以在没有上述限制的情况下按每个子集群进行配置.
 {{% /alert %}}
 
-Multiple scheduling strategies are supported by now, such as replication scheduling, static dividing scheduling by
-weight, dynamic dividing scheduling by cluster capacity. Please follow tutorials below to learn more.
+目前支持多种调度策略，如复制调度、静态权重调度，基于集群容量动态调度。请按照下面的教程了解更多信息。

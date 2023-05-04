@@ -6,14 +6,11 @@ draft: false
 weight: 3
 ---
 
-This tutorial will walk you through how to deploy applications to multiple clusters with dynamic scheduling. It is
-different from static dividing scheduling. When using dynamic scheduling, the replicas of an application will be split
-based on cluster capacity.
+本教程将指导您如何使用动态调度将应用程序部署到多个集群。不同于静态调度，使用动态调度时，应用程序的副本将基于集群容量进行动态划分。
 
-## Defining Your Applications
+## 定义你的应用
 
-Let's see an example using dynamic scheduling. Below `Subscription` "dynamic-dividing-scheduling-demo" defines the
-target child clusters to be distributed to, and the resources to be deployed with.
+让我们看一个使用动态调度的示例。 下面的 `Subscription` "dynamic-dividing-scheduling-demo" 定义了应用要调度到的子集群, 以及需要进行部署的资源。
 
 ```yaml
 # examples/dynamic-dividing-scheduling/subscription.yaml
@@ -47,17 +44,15 @@ spec:
       namespace: qux
 ```
 
-The `Deployment` qux/my-nginx above will run in a set of clusters with a total of 6 replicas. For example, if we've got
-three matching clusters as below.
+上面的`Deployment` qux/my-nginx 将会在一系列集群中启动共计6个副本. 举个例子, 如果我们有以下三个可以匹配的集群.
 
-- `cluster-01` can run 3 replicas of Deployment `qux/my-nginx`
-- `cluster-02` can run 6 replicas of Deployment `qux/my-nginx`
-- `cluster-03` can run 9 replicas of Deployment `qux/my-nginx`
+- `cluster-01` 可以运行 `qux/my-nginx`的3个副本
+- `cluster-02` 可以运行 `qux/my-nginx`的6个副本
+- `cluster-03` 可以运行 `qux/my-nginx`的9个副本
 
-`clusternet-scheduler` will assign replicas to each matching cluster by their capacity. As a result, these three clusters
-will run 1, 2, 3 replicas respectively.
+`clusternet-scheduler` 将根据各集群的副本的容量为每个匹配的集群分配副本。因此，这三个集群将分别运行1、2、3个副本。
 
-You can get the scheduling result by checking the status of Subscription `dynamic-dividing-scheduling-demo`.
+您可以通过检查Subscription `dynamic-dividing-scheduling-demo`的状态来获得调度结果。
 
 ```yaml
 bindingClusters:
@@ -74,13 +69,11 @@ bindingClusters:
     v1/Service/qux/my-nginx-svc: []
 ```
 
-If you want to apply overrides per cluster, please
-follow [How to Set Overrides in Clusternet](/docs/tutorials/multi-cluster-apps/setting-overrides/).
+如果要对每个集群使用overrides，请遵循[在 Clusternet 中如何设置 Overrides](/zh-cn/docs/tutorials/multi-cluster-apps/setting-overrides/).
 
-## Applying Your Applications
+## 部署您的应用程序
 
-After installing kubectl plugin [kubectl-clusternet](/docs/kubectl-clusternet/), you could run commands below to
-distribute this application to child clusters.
+安装完 kubectl 插件 [kubectl-clusternet](/zh-cn/docs/kubectl-clusternet/)之后, 您可以使用以下命令将应用分发到子集群之中。
 
 ```bash
 $ kubectl clusternet apply -f examples/dynamic-dividing-scheduling/
@@ -92,5 +85,4 @@ $ # or
 $ # kubectl-clusternet apply -f examples/dynamic-dividing-scheduling/
 ```
 
-You can [check aggregated status](docs/tutorials/multi-cluster-apps/aggregated-status/) of feeds/resources running in
-each child clusters.
+您可以对运行在每个子集群中的feeds/resources [检查聚合状态](/zh-cn/docs/tutorials/multi-cluster-apps/aggregated-status/).
