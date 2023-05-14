@@ -9,7 +9,9 @@ weight: 1
 对于调度到子集群中的服务, 我们可以在父集群中通过服务名称或者cluster ip直接访问.
 
 {{% alert title="Note" color="primary" %}}
-确保父集群可以直接访问子集群的pod网段，并且子集群间的pod网段没有冲突或者重叠。
+1. 确保父集群可以直接访问子集群的pod网段，并且子集群间的pod网段没有冲突或者重叠。
+2. 确保特性`MultiClusterService`在`clusternet-agent`和`clusternet-controller-manager`侧都是`true`，你可以直接编辑`clusternet-agent`和`clusternet-controller-manager`这
+两个deployment:`--feature-gates=xxx,MultiClusterService=true`
 {{% /alert %}}
 
 ## 1. 根据部署策略将应用部署到子集群中
