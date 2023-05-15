@@ -9,8 +9,11 @@ weight: 1
 For services in child clusters, we can use service name to visit them locally from parent cluster.
 
 {{% alert title="Note" color="primary" %}}
-Make sure parent cluster can visit child clusters pod CIDR and each cluster must use distinct pod CIDRs 
+1. Make sure parent cluster can visit child clusters pod CIDR and each cluster must use distinct pod CIDRs 
 that don’t conflict or overlap with any other cluster.
+2. Make sure experimental feature `MultiClusterService` is enabled both on `clusternet-agent` and `clusternet-controler-manager`
+side. You can manually enable the feature by directly modifying with 
+`--feature-gates=xxx,MultiClusterService=true` of deployments `clusternet-controller-manager` and `clusternet-agent`.
 {{% /alert %}}
 
 ## 1. Deploying applications to multiple clusters with various scheduling strategies
