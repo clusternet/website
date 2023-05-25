@@ -1,28 +1,26 @@
 ---
-title: "Clusternet Upgrade"
-description: "Provide an overview of the steps you should follow to upgrade Clusternet"
+title: "Clusternet 升级"
+description: "概述升级Clusternet应遵循的步骤"
 date: 2023-04-07
 draft: false
 collapsible: false
 ---
 
-Mostly you can directly upgrade the container images or binaries of Clusternet. This depends on how you initially
-deployed it and on any subsequent changes.
+大多数情况下，您可以直接升级Clusternet的容器映像或二进制文件。 这取决于您最初是如何部署clusternet的.
 
-## Upgrading to v0.15.0
+## 升级到 v0.15.0
 
-In v0.15.0, a new component `clusternet-controller-manager` was introduced. This new component inherited some 
-capabilities from `clusternet-hub`. Some flags and feature gates were moving together to
-`clusternet-controller-manager` as well. These changes would alter the arguments that passed to `clusternet-hub`.
-Please pay attention to below changes.
+在 v0.15.0, 介绍了一种新的组件 `clusternet-controller-manager` . 这个新组件 继承了`clusternet-hub`中的一些能力. 一些 flags 和 feature gates 也一起移动到
+`clusternet-controller-manager` 之中. 这些改动将影响传递给 `clusternet-hub`的参数.
+请关注以下改变.
 
-- Flag `anonymous-auth-supported` was moved to `clusternet-controller-manager`. This flag would not be available for 
-  `clusternet-hub` anymore.
-- Flag `cluster-api-kubeconfig` was moved to `clusternet-controller-manager`. This flag would not be available for
-  `clusternet-hub` anymore.
-- Feature gate `Deployer` was moved to `clusternet-controller-manager`. This feature gate would not be available for
-  `clusternet-hub` anymore.
-- Feature gate `FeedInUseProtection` was moved to `clusternet-controller-manager`. This feature gate would not be
-  available for `clusternet-hub` anymore.
-- Feature gate `FeedInventory` was moved to `clusternet-controller-manager`. This feature gate would not be
-  available for `clusternet-hub` anymore.
+- Flag `anonymous-auth-supported` 被移动到 `clusternet-controller-manager`.  
+  `clusternet-hub` 中的此参数将不再可用.
+- Flag `cluster-api-kubeconfig` 被移动到 `clusternet-controller-manager`. 
+  `clusternet-hub` 中的此参数将不再可用.
+- Feature gate `Deployer` 被移动到 `clusternet-controller-manager`. 
+  `clusternet-hub` 中的此参数将不再可用.
+- Feature gate `FeedInUseProtection` 被移动到 `clusternet-controller-manager`. 
+  `clusternet-hub` 中的此参数将不再可用.
+- Feature gate `FeedInventory` 被移动到 `clusternet-controller-manager`. 
+   `clusternet-hub` 中的此参数将不再可用.
