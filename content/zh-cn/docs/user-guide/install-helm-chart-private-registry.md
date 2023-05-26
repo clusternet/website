@@ -6,12 +6,12 @@ weight: 1
 collapsible: false
 ---
 
-此页面显示如何将Helm Chart从私有仓库部署到子集群。
-使用 [Secret](https://kubernetes.io/docs/concepts/configuration/secret/) 存储认证信息.
+此页面说明了如何将私有仓库中的Helm Chart部署到子集群。
+使用[Secret](https://kubernetes.io/docs/concepts/configuration/secret/) 存储私有仓库的认证信息.
 
 ## 创建 Secret
 
-在大多数shell中，转义密码的最简单方法是用单引号将其括起来(`'`).例如, 如果你的密码是 `S!B\*d$zDsb=`, 
+在大多数的shell中，转义密码的最简单的方法是使用单引号将其括起来(`'`).例如, 如果您的密码是 `S!B\*d$zDsb=`, 
 执行以下命令:
 
 ```shell
@@ -31,13 +31,13 @@ metadata:
   namespace: my-system
 type: Opaque
 stringData:
-  password: devuser
-  username: S!B\*d$zDsb=
+  password: S!B\*d$zDsb=
+  username: devuser
 ```
 
 ## 创建一个使用您的Secret的helm chart
 
-以下是一个示例 `HelmChart`， 该chart使用存储在 `my-helm-repo`中的凭证访问私有仓库:
+以下是一个示例的 `HelmChart`， 该chart使用存储在 `my-helm-repo`中的凭证访问私有仓库:
 
 ```yaml
 apiVersion: apps.clusternet.io/v1alpha1
