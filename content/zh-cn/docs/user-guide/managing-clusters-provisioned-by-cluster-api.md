@@ -1,43 +1,34 @@
 ---
-title: "Managing Clusters Provisioned by Cluster API Providers"
-description: "How to Work with Cluster API Providers"
+title: "管理由Cluster API Providers所创建的集群"
+description: "如何与Cluster API Providers协同工作"
 date: 2022-11-09
 draft: false
 weight: 3
 collapsible: false
 ---
 
-The experimental
-feature [ClusterResourceSet](https://cluster-api.sigs.k8s.io/tasks/experimental-features/cluster-resource-set.html)
-in [Cluster API](https://github.com/kubernetes-sigs/cluster-api)
-allows users to automatically install additional components onto workload clusters when the workload clusters are
-provisioned. With the help of this, clusters provisioned
-by [Cluster API](https://github.com/kubernetes-sigs/cluster-api)
-providers can be discovered and automatically get registered starting from Clusternet v0.12.0.
+[Cluster API](https://github.com/kubernetes-sigs/cluster-api)项目中提供了一个实验性的功能 [ClusterResourceSet](https://cluster-api.sigs.k8s.io/tasks/experimental-features/cluster-resource-set.html)，该功能允许用户在工作集群创建完成之后，自动在工作集群中安装额外组件。 借助于此, Clusternet v0.12.0之后的版本可以自动发现由 [Cluster API](https://github.com/kubernetes-sigs/cluster-api)
+providers所创建的工作集群，并将其注册到Clusternet之中.
 
-At a high level, using `ClusterResourceSet` to install `clusternet-agent` automatically looks like this:
+概括来讲, 使用`ClusterResourceSet`功能自动化安装`clusternet-agent`大致包括以下步骤:
 
-1. Make sure experimental features `ClusterResourceSet` are enabled on
-   your [Cluster API](https://github.com/kubernetes-sigs/cluster-api) management cluster.
-2. Create a `Secret` in your [Cluster API](https://github.com/kubernetes-sigs/cluster-api) management cluster. that
-   contains all the information to configure `clusternet-agent`, such as bootstrap token, parent cluster endpoint,
-   container image.
-3. `clusternet-hub` connects to your [Cluster API](https://github.com/kubernetes-sigs/cluster-api) management cluster
-   and watches all the clusters that are ready.
-4. `clusternet-hub` creates a `ClusterResourceSet` that will match all the workload clusters in the same namespace.
+1. 请确保 `ClusterResourceSet` 功能在您的 [Cluster API](https://github.com/kubernetes-sigs/cluster-api) 管理集群中被启用.
+2. 在您的 [Cluster API](https://github.com/kubernetes-sigs/cluster-api) 管理集群中创建 `Secret` . 该`Secret`
+   包括配置`clusternet-agent`所需的全部信息, 例如 bootstrap token,  父集群的endpoint,
+   agent的容器镜像版本等信息.
+3. `clusternet-hub` 将连接到您的 [Cluster API](https://github.com/kubernetes-sigs/cluster-api) 管理集群，
+   watch所有处于ready状态的cluster对象.
+4. `clusternet-hub` 会创建一个 `ClusterResourceSet` ，匹配同一namespace之下的所有工作集群.
 
-The sections below describe each of these steps in more detail.
+以下各节更详细地描述了每一个步骤.
 
-## Enabling Experimental Features
+## 启用实验功能
 
-If you have not initialized the [Cluster API](https://github.com/kubernetes-sigs/cluster-api) management cluster, the
-preferred way to enable experimental features is to use a setting in the `clusterctl`
-configuration file or its environment variable equivalent. Specifically, putting `EXP_CLUSTER_RESOURCE_SET: "true"` in
-the `clusterctl` configuration file or using `export EXP_CLUSTER_RESOURCE_SET=true` before initializing the management
-cluster with `clusterctl init` will enable the ClusterResourceSet functionality.
+如果您还没有完成 [Cluster API](https://github.com/kubernetes-sigs/cluster-api) 管理集群的初始化, 那么启用实验功能的推荐方式是使用 `clusterctl`
+的配置文件或环境变量. 具体来说, 需要在`clusterctl` 配置文件中设置`EXP_CLUSTER_RESOURCE_SET: "true"` 
+或者在使用 `clusterctl init`初始化管理集群前，设置环境变量 `export EXP_CLUSTER_RESOURCE_SET=true`，以启用`ClusterResourceSet`功能.
 
-You can also manually enable experimental features by directly modifying Deployment `capi-controller-manager` in
-the `capi-system` namespace.
+您也可以通过直接修改`capi-system` namespace中的Deployment `capi-controller-manager` 来启用实验功能.
 
 ```yaml
 - args:
@@ -48,10 +39,9 @@ the `capi-system` namespace.
     - /manager
 ```
 
-## Creating a Secret for Cluster
+## 为工作集群创建 Secret
 
-You have to set right parameters for `clusternet-agent`, such as where should the clusters be registered to, the
-container image version and the bootstrap token for cluster registration.
+您需要为`clusternet-agent`设置正确的参数, 例如这些工作集群要注册到哪个父集群上,`clusternet-agent`所使用的容器镜像的版本以及集群注册所需要的bootstrap token.
 
 ```bash
 $ wget https://raw.githubusercontent.com/clusternet/clusternet/main/deploy/templates/clusternet_clusterapi_secret.yaml
@@ -61,27 +51,26 @@ $ IMAGE=ghcr.io/clusternet/clusternet-agent:v0.12.0 \
   envsubst < ./clusternet_clusterapi_secret.yaml | kubectl apply -f -
 ```
 
-Please remember to slightly modify the values above to yours.
+请注意将上述命令中的变量更新为您环境中的实际值.
 
-You can refer
-to [how to generate token for cluster registration](../../installation/install-the-hard-way/#deploying-clusternet-hub-in-parent-cluster)
-when setting `REGTOKEN`.
+您可以参考 [how to generate token for cluster registration](../../installation/install-the-hard-way/#deploying-clusternet-hub-in-parent-cluster)
+来设置 `REGTOKEN`.
 
-## Configuring `clusternet-hub`
+## 设置 `clusternet-hub`
 
-For `clusternet-hub`, it needs to know where the [Cluster API](https://github.com/kubernetes-sigs/cluster-api)
-management cluster is. You can specify an accessible kubeconfig file to flag `--cluster-api-kubeconfig`.
+ `clusternet-hub`需要知道[Cluster API](https://github.com/kubernetes-sigs/cluster-api)
+管理集群的连接方式. 您可以将[Cluster API](https://github.com/kubernetes-sigs/cluster-api)管理集群的kubeconfig文件路径设置到`clusternet-hub`的flag `--cluster-api-kubeconfig`之中.
 
 ```bash
 --cluster-api-kubeconfig string                   Path to a kubeconfig file pointing at the management cluster for cluster-api.
 ```
 
-You can mount this file as a volume to `clusternet-hub` pods.
+您可以将这个kubeconfig文件以volume的方式挂载到 `clusternet-hub` 的pod中.
 
-## `ClusterResourceSet` Will Be Automatically Created
+## 自动创建 `ClusterResourceSet` 
 
-In your [Cluster API](https://github.com/kubernetes-sigs/cluster-api)
-management cluster, you can find `ClusterResourceSets` are automatically created.
+在您的[Cluster API](https://github.com/kubernetes-sigs/cluster-api)
+管理集群中, 您可以看到 `ClusterResourceSets` 被自动创建了.
 
 ```bash
 $ kubectl --kubeconfig=/etc/clusternet/capi.conf get clusters -A
@@ -92,8 +81,7 @@ NAMESPACE   NAME                     AGE
 default     clusternet-cluster-api   3h46m
 ```
 
-When you list all the pods running in your provisioned workload clusters, you can find `clusternet-agent` are deployed as
-well.
+当您查询工作集群中运行的所有pod时, 您可以发现 `clusternet-agent` 已经被正常部署了.
 
 ```bash
 $ kubectl get pod --kubeconfig=capi-quickstart.config -A

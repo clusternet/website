@@ -1,18 +1,19 @@
 ---
-title: "Install Helm Charts from a Private Registry"
+title: "从私有仓库安装Helm Charts"
 date: 2022-10-12
 draft: false
 weight: 1
 collapsible: false
 ---
 
-This page shows how to deploy a Helm Chart from a private registry to child clusters.
-A [Secret](https://kubernetes.io/docs/concepts/configuration/secret/) is used to store the credentials.
+此页面说明了如何将私有仓库中的Helm Chart部署到子集群。
 
-## Create a Secret
+使用[Secret](https://kubernetes.io/docs/concepts/configuration/secret/) 存储私有仓库的认证信息.
 
-In most shells, the easiest way to escape the password is to surround it with single quotes (`'`). For example, if your
-password is `S!B\*d$zDsb=`, run the following command:
+## 创建 Secret
+
+在大多数的shell中，转义密码的最简单的方法是使用单引号将其括起来(`'`).例如, 如果您的密码是 `S!B\*d$zDsb=`, 
+执行以下命令:
 
 ```shell
 kubectl create ns my-system
@@ -21,7 +22,7 @@ kubectl create secret generic my-helm-repo -n my-system \
   --from-literal=password='S!B\*d$zDsb='
 ```
 
-or we can apply below yaml file with command `kubectl apply`,
+或者我们可以使用命令应用下面的yaml文件 `kubectl apply`,
 
 ```yaml
 apiVersion: v1
@@ -31,13 +32,13 @@ metadata:
   namespace: my-system
 type: Opaque
 stringData:
-  password: devuser
-  username: S!B\*d$zDsb=
+  password: S!B\*d$zDsb=
+  username: devuser
 ```
 
-## Create a Helm Chart that uses your Secret
+## 创建一个使用您的Secret的helm chart
 
-Here is a manifest for an example `HelmChart` that needs access to your Helm registry credentials in `my-helm-repo`:
+以下是一个示例的 `HelmChart`， 该chart使用存储在 `my-helm-repo`中的凭证访问私有仓库:
 
 ```yaml
 apiVersion: apps.clusternet.io/v1alpha1
@@ -55,5 +56,4 @@ spec:
   targetNamespace: abc
 ```
 
-Then you can follow [tutorials on multi-cluster applications](../../tutorials/multi-cluster-apps) to deploy
-this `HelmChart` to child clusters.
+之后您可以根据 [tutorials on multi-cluster applications](../../tutorials/multi-cluster-apps) 将这个`HelmChart` 部署到子集群之中.
