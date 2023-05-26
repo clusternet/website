@@ -7,6 +7,7 @@ collapsible: false
 ---
 
 此页面说明了如何将私有仓库中的Helm Chart部署到子集群。
+
 使用[Secret](https://kubernetes.io/docs/concepts/configuration/secret/) 存储私有仓库的认证信息.
 
 ## 创建 Secret

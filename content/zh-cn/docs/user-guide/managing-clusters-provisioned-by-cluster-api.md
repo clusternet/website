@@ -7,15 +7,15 @@ weight: 3
 collapsible: false
 ---
 
-[Cluster API](https://github.com/kubernetes-sigs/cluster-api)项目中提供了一个实验性的功能 [ClusterResourceSet](https://cluster-api.sigs.k8s.io/tasks/experimental-features/cluster-resource-set.html)，该功能允许用户在工作集群创建完成之后，自动化的在工作集群中安装额外组件。 借助于此, Clusternet v0.12.0之后的版本可以自动化的发现由 [Cluster API](https://github.com/kubernetes-sigs/cluster-api)
-providers 所创建的工作集群，并将其注册到Clusternet之中.
+[Cluster API](https://github.com/kubernetes-sigs/cluster-api)项目中提供了一个实验性的功能 [ClusterResourceSet](https://cluster-api.sigs.k8s.io/tasks/experimental-features/cluster-resource-set.html)，该功能允许用户在工作集群创建完成之后，自动在工作集群中安装额外组件。 借助于此, Clusternet v0.12.0之后的版本可以自动发现由 [Cluster API](https://github.com/kubernetes-sigs/cluster-api)
+providers所创建的工作集群，并将其注册到Clusternet之中.
 
 概括来讲, 使用`ClusterResourceSet`功能自动化安装`clusternet-agent`大致包括以下步骤:
 
 1. 请确保 `ClusterResourceSet` 功能在您的 [Cluster API](https://github.com/kubernetes-sigs/cluster-api) 管理集群中被启用.
 2. 在您的 [Cluster API](https://github.com/kubernetes-sigs/cluster-api) 管理集群中创建 `Secret` . 该`Secret`
    包括配置`clusternet-agent`所需的全部信息, 例如 bootstrap token,  父集群的endpoint,
-   agent的容器镜像的版本等信息.
+   agent的容器镜像版本等信息.
 3. `clusternet-hub` 将连接到您的 [Cluster API](https://github.com/kubernetes-sigs/cluster-api) 管理集群，
    watch所有处于ready状态的cluster对象.
 4. `clusternet-hub` 会创建一个 `ClusterResourceSet` ，匹配同一namespace之下的所有工作集群.
