@@ -3,6 +3,7 @@ title: "Clusternet Upgrade"
 description: "Provide an overview of the steps you should follow to upgrade Clusternet"
 date: 2023-04-07
 draft: false
+weight: 4
 collapsible: false
 ---
 

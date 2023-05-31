@@ -2,7 +2,7 @@
 title: "从私有仓库安装Helm Charts"
 date: 2022-10-12
 draft: false
-weight: 1
+weight: 7
 collapsible: false
 ---
 

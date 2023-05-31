@@ -3,6 +3,7 @@ title: "Localization 和 Globalization"
 description: 如何理解 Localization 和 Globalization
 date: 2022-11-15
 draft: false
+weight: 5
 collapsible: false
 ---
 

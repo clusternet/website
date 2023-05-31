@@ -3,7 +3,7 @@ title: "Resources Creation in Clusternet"
 description: "How Clusternet Manages Resources in a Separate View"
 date: 2022-10-18
 draft: false
-weight: 2
+weight: 1
 collapsible: false
 ---
 

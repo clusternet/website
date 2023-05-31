@@ -3,7 +3,7 @@ title: "Integration with Submariner"
 description: "Combinations of `submariner` and `clusternet` will securely connect workloads across member clusters"
 date: 2023-3-25
 draft: false
-weight: 3
+weight: 6
 collapsible: false
 ---
 

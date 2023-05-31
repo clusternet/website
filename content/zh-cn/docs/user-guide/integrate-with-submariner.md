@@ -3,7 +3,7 @@ title: "与Submariner集成"
 description: "将`submariner`和`clusternet`集成可以对跨集群的工作负载进行安全地访问"
 date: 2023-3-25
 draft: false
-weight: 3
+weight: 6
 collapsible: false
 ---
 

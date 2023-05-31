@@ -3,6 +3,7 @@ title: "Clusternet 升级"
 description: "概述升级Clusternet应遵循的步骤"
 date: 2023-04-07
 draft: false
+weight: 4
 collapsible: false
 ---
 
