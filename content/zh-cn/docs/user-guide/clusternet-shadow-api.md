@@ -3,7 +3,7 @@ title: "Clusternet 的资源创建"
 description: "Clusternet 如何在单独的视图中管理资源"
 date: 2022-10-18
 draft: false
-weight: 2
+weight: 1
 collapsible: false
 ---
 

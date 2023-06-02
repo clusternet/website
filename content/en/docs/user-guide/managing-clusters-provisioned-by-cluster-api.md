@@ -3,7 +3,7 @@ title: "Managing Clusters Provisioned by Cluster API Providers"
 description: "How to Work with Cluster API Providers"
 date: 2022-11-09
 draft: false
-weight: 3
+weight: 2
 collapsible: false
 ---
 

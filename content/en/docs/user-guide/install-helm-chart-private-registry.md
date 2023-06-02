@@ -2,7 +2,7 @@
 title: "Install Helm Charts from a Private Registry"
 date: 2022-10-12
 draft: false
-weight: 1
+weight: 7
 collapsible: false
 ---
 

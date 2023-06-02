@@ -3,7 +3,7 @@ title: "管理由Cluster API Providers所创建的集群"
 description: "如何与Cluster API Providers协同工作"
 date: 2022-11-09
 draft: false
-weight: 3
+weight: 2
 collapsible: false
 ---
 

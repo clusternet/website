@@ -3,6 +3,7 @@ title: "Localization and Globalization"
 description: "How to Understand Localization and Globalization"
 date: 2022-10-19
 draft: false
+weight: 5
 collapsible: false
 ---
 
