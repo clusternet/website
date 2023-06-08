@@ -3,7 +3,7 @@ title: "允许clusternet-hub发送重定向请求"
 description: "由于 Kubernetes CVE-2022-3172，需要进行此项配置"
 date: 2023-02-03
 draft: false
-weight: 3
+weight: 2
 ---
 
 >  `kube-apiserver` 存在安全问题，允许聚合apiserver将客户端流量重定向到任何URL。

@@ -1,7 +1,7 @@
 ---
 title: "HelmChart"
 date: 2023-02-01
-weight: 4
+weight: 3
 description: "配置 HelmChart"
 ---
 

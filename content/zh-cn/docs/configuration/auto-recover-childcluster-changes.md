@@ -3,7 +3,7 @@ title: "覆盖子集群中的所有变化"
 description: "本配置可以将子集群中的所有修改，比如删除、更新，覆盖掉。"
 date: 2023-03-21
 draft: false
-weight: 3
+weight: 1
 ---
 
 > Clusternet-agent 提供了一个特性开关`Recovery`它允许把子集群中的全部变化悉数回滚，这个特性默认是`关闭`的。

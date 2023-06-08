@@ -3,7 +3,7 @@ title: "Recover All Changes Happens in Child Clusters."
 description: "This helps rollback unexpected operations (like deleting, updating) that occurred solely inside a child cluster."
 date: 2023-03-21
 draft: false
-weight: 3
+weight: 1
 ---
 
 > Clusternet-agent provide a feature gate `Recovery` which allows to rollback any changes inside a child cluster.
