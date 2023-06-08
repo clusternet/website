@@ -3,7 +3,7 @@ title: "Allowing Requests to be Redirected by clusternet-hub"
 description: "Action required for Kubernetes CVE-2022-3172"
 date: 2023-02-03
 draft: false
-weight: 3
+weight: 2
 ---
 
 > A security issue was discovered in `kube-apiserver` that allows an aggregated API server to redirect client traffic to
