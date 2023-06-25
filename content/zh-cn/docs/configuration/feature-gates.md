@@ -51,7 +51,8 @@ components:
 | ContextualLogging                   | false   | ALPHA | v0.1.0  |       | true                      |
 | CustomResourceValidationExpressions | true    | BETA  | v0.1.0  |       | true                      |
 | Deployer                            | false   | ALPHA | v0.2.0  |       | false                     |
-| FailOver                            | false   | ALPHA | v0.15.0 |       | false                     |
+| FailOver                            | false   | ALPHA | v0.16.0 |       | false                     |
+| FeasibleClustersToleration          | false   | ALPHA | v0.16.0 |       | false                     |
 | FeedInUseProtection                 | false   | ALPHA | v0.4.0  |       | false                     |
 | FeedInventory                       | false   | ALPHA | v0.9.0  |       | false                     |
 | KMSv2                               | false   | ALPHA | v0.1.0  |       | true                      |
@@ -167,6 +168,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
 
 - `FailOver`: Migrates workloads from not-ready clusters to healthy
   spare clusters. Setting on `clusternet-scheduler` side.
+
+- `FeasibleClustersToleration`: Indicates whether to tolerate failures
+  on feasible clusters for dynamic scheduling with predictors. This
+  helps improve scheduler's performance on dynamic scheduling with
+  predictors. Setting on `clusternet-scheduler` side.
 
 - `FeedInUseProtection`: Postpones deletion of an object that is being
   referred as a feed in Subscriptions. Setting on
