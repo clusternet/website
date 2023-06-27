@@ -56,6 +56,7 @@ Clusternet is multiple platforms supported now, including `linux/amd64`, `linux/
       - cluster resource predictor framework for `in-tree` and `out-of-tree` implementations
       - various deployment topologies for cluster resource predictors
     - subgroup cluster scheduling
+    - multi-cluster failover migration
   - Various Resource Types
     - Kubernetes native objects, such as `Deployment`, `StatefulSet`, etc
     - CRDs

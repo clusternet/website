@@ -26,57 +26,56 @@ Clusternet 还提供了 Kubernetes 风格的 API，在这里你可以继续使�
 Clusternet现在支持多个平台，包括`linux/amd64`、`linux/arm64`、`linux/ppc64le`、`linux/s390x`
 , `linux/386` 和 `linux/arm`;
 
-## Core Features
+## 核心功能
 
-- Kubernetes Multi-Cluster Management and Governance
-  - managing Kubernetes clusters running in cloud providers, such as AWS, Google Cloud, Tencent Cloud, Alibaba Cloud,
-    etc
-  - managing on-premise Kubernetes clusters
-  - managing any [Certified Kubernetes Distributions](https://www.cncf.io/certification/software-conformance/), such
-    as [k3s](https://github.com/k3s-io/k3s)
-  - managing Kubernetes clusters running at the edge
-  - automatically discovering and registering clusters created by [cluster-api](https://github.com/kubernetes-sigs/cluster-api)
-  - parent cluster can also register itself as a child cluster to run workloads
-  - managing Kubernetes upper than v1.17.x (Learn more
-    about [Kubernetes Version Skew](/docs/introduction/#kubernetes-version-skew))
-  - visiting any managed clusters with dynamic RBAC rules (Learn more
-    from [this tuorial](/docs/tutorials/cluster-management/visiting-child-clusters-with-rbac/))
-  - cluster auto-labelling based on [Node Feature Discovery](https://github.com/kubernetes-sigs/node-feature-discovery)
-- Application Coordinations
-  - Scheduling Framework (`in-tree` plugins, `out-of-tree` plugins)
-  - Cross-Cluster Scheduling
-    - replication scheduling
-    - static dividing scheduling by weight
-    - dynamic dividing scheduling by capacity
-      - cluster resource predictor framework for `in-tree` and `out-of-tree` implementations
-      - various deployment topologies for cluster resource predictors
-    - subgroup cluster scheduling
-  - Various Resource Types
-    - Kubernetes native objects, such as `Deployment`, `StatefulSet`, etc
-    - CRDs
-    - helm charts, including [OCI-based Helm charts](https://helm.sh/docs/topics/registries/)
-  - Resource interpretation with `in-tree` or `out-of-tree` controller
-  - [Setting Overrides](/docs/tutorials/multi-cluster-apps/setting-overrides/)
-    - two-stage priority based override strategies
-    - easy to rollback overrides
-    - cross-cluster canary rollout
-  - Multi-Cluster Services
-    - multi-cluster services discovery with [mcs-api](https://github.com/kubernetes-sigs/mcs-api)
-- CLI
-  - providing a kubectl plugin, which can be installed with `kubectl krew install clusternet`
-  - consistent user experience with `kubectl`
-  - create/update/watch/delete multi-cluster resources
-  - interacting with any child clusters the same as local cluster
+- 多集群管理和治理
+  - 纳管运行在云上的Kubernetes集群，比如AWS，Google云，腾讯云，阿里云等
+  - 纳管自管的Kubernetes集群
+  - 纳管任何通过[认证的Kubernetes发行版](https://www.cncf.io/certification/software-conformance/)，
+    比如[k3s](https://github.com/k3s-io/k3s)
+  - 纳管边缘的Kubernetesmanaging Kubernetes clusters running at the edge
+  - 自动发现和注册通过
+    [cluster-api](https://github.com/kubernetes-sigs/cluster-api)创建出来的集群
+  - 管控集群（父集群）也可以注册为子集群来跑业务负载
+  - 纳管版本高于v1.17.x的各类Kubernetes集群 (参照
+    [Kubernetes版本偏差](/docs/introduction/#kubernetes-version-skew))
+  - 支持通过动态的RBAC规则访问子集群 (参照[这篇教程](/docs/tutorials/cluster-management/visiting-child-clusters-with-rbac/))
+  - 支持通过[Node Feature Discovery](https://github.com/kubernetes-sigs/node-feature-discovery)自动发现集群特性，并打标
+- 应用分发
+  - 调度框架（`in-tree` 插件/`out-of-tree`插件）
+  - 跨集群调度
+    - 复制调度
+    - 静态基于权重的拆分调度
+    - 动态基于水位的拆分调度
+      - 集群资源预测器框架，支持`in-tree`/`out-of-tree`的实现
+      - 支持多种拓扑来部署集群资源预测器
+    - 集群子分组调度
+    - 多集群故障自动迁移
+  - 全种类应用资源
+    - Kubernetes 原生对象，比如`Deployment`，`StatefulSet`等等
+    - CRD
+    - helm charts, 包括[基于OCI的Helm Chart](https://helm.sh/docs/topics/registries/)
+  - 资源解释器，支持`in-tree`或`out-of-tree`的控制器
+  - [差异化配置](/docs/tutorials/multi-cluster-apps/setting-overrides/)
+    - 两阶段基于优先级的差异化策略
+    - 一键回滚
+    - 跨集群的灰度发布
+  - 多集群服务
+    - 支持基于[mcs-api](https://github.com/kubernetes-sigs/mcs-api)的跨集群服务发现
+- 命令行
+  - 提供kubectl插件，可以通过`kubectl krew install clusternet`一键安装
+  - 保持与kubectl一致的使用体验
+  - 创建/更新/跟踪/删除多集群的资源
+  - 像访问本地集群一样与任一子集群进行交互
 - Client-go
-  - easy to integrate via
-    a [client-go wrapper](https://github.com/clusternet/clusternet/blob/main/examples/clientgo/READEME.md)
+  - 通过一个[wrapper](https://github.com/clusternet/clusternet/blob/main/examples/clientgo/READEME.md)，完成与client-go的集成
 
 ## 架构
 
 ![](/images/clusternet-arch.png)
 
 Clusternet 是一个轻量级插件，由 "clusternet-agent"、"clusternet-scheduler"、"clusternet-controller-manager"（自 v0.15.0 起）和
-"clusternet-hub" 四个组件组成.
+"clusternet-hub" 四个组件组成。
 
 `clusternet-agent` 负责
 
@@ -109,8 +108,8 @@ Clusternet 是一个轻量级插件，由 "clusternet-agent"、"clusternet-sched
 
 如果集群运行的 Kubernetes 版本高于 `v1.24.0`，请将 `Clusternet` 升级到至少 `v0.13.0` 版本。
 
-| 版本              | Kubernetes v1.17.x | v1.18.x | v1.19.x ~ v1.23.x | > = v1.24.x |
-|-------------------| ------------------ | ------- | ----------------- | ----------- |
+| 版本               | Kubernetes v1.17.x | v1.18.x | v1.19.x ~ v1.23.x | > = v1.24.x |
+|:------------------|:-------------------|:--------|:------------------|:------------|
 | Clusternet v0.5.0 | \*                 | \*      | ✓                 | \*          |
 | v0.6.0 ~ v0.12.0  | \*                 | ✓       | ✓                 | \*          |
 | >= v0.13.0        | \*                 | ✓       | ✓                 | ✓           |
