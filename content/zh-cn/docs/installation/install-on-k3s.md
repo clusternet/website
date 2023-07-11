@@ -11,8 +11,8 @@ collapsible: false
 
 #### 设置 anonymous-auth 为 false
 
-- 如果是[通过Helm安装](/zh-cn/docs/installation/install-with-helm), 需要为 clusternet-hub 和clusternet-controller-manager 两个Chart的value文件设置`anonymousAuthSupported` 为`false`
-- 如果是[手动安装clusternet](/zh-cn/docs/installation/install-the-hard-way), 需要为 clusternet-hub 和 clusternet-controller-manager  设置`--anonymous-auth=false` 命令行参数
+- 如果是[通过Helm安装](/zh-cn/docs/installation/install-with-helm), clusternet-controller-manager 两个Chart的value文件设置`anonymousAuthSupported` 为`false`
+- 如果是[手动安装clusternet](/zh-cn/docs/installation/install-the-hard-way), 需要为clusternet-controller-manager  设置`--anonymous-auth=false` 命令行参数
 
 #### 创建Serviceaccount Token
 - `kubectl apply -f https://raw.githubusercontent.com/clusternet/clusternet/main/manifests/samples/cluster_serviceaccount_token.yaml`
