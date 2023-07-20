@@ -5,7 +5,7 @@ draft: false
 weight: 1
 description: "将应用调度到多个集群"
 ---
-本教程将向您介绍如何使用**复制调度(replication scheduling)**(默认的调度策略)将应用程序部署到多个集群。复制调度意味着每个匹配的集群将运行一个复制且完整的应用实例。例如，如果您希望将一个包含5个副本的`Deployment`部署到2个集群，那么每个集群将分别运行一个包含5个副本的`Deployment`.
+本教程将向您介绍如何使用**复制调度(replication scheduling)**(默认的调度策略)将应用程序部署到多个集群。复制调度意味着每个匹配的集群将运行一个复制且完整的应用实例。例如，如果您希望将一个包含5个副本的`Deployment`部署到2个集群，那么每个集群将分别运行一个包含5个副本的`Deployment`。
 
 ## 定义你的应用
 
@@ -41,19 +41,18 @@ spec:
       namespace: foo
 ```
 
-在应用`Subscription`前，请将修改clusterID。
+在应用`Subscription`前，请先修改clusterID。
 [examples/replication-scheduling/subscription.yaml](https://github.com/clusternet/clusternet/blob/main/examples/replication-scheduling/subscription.yaml)
 
 {{% alert title="提示" color="primary" %}}
 如果要从私有 helm 仓库安装 helm chart，请参考[这个例子](https://github.com/clusternet/clusternet/blob/main/deploy/templates/helm-chart-private-repo.yaml)设置有效的 `chartPullSecret`。
 {{% /alert %}}
 
-Clusternet 也支持使用在 Helm Chart 中使用[OCI标准的镜像仓库仓库](https://helm.sh/docs/topics/registries/).
-请参考[这个 OCI 类型的 Helm Chart 示例](https://github.com/clusternet/clusternet/blob/main/examples/oci/oci-chart-mysql.yaml).
+Clusternet 也支持在 Helm Chart 中使用[OCI标准的镜像仓库仓库](https://helm.sh/docs/topics/registries/)，
+请参考[这个 OCI 类型的 Helm Chart 示例](https://github.com/clusternet/clusternet/blob/main/examples/oci/oci-chart-mysql.yaml)。
 
-如果你想设置一些覆盖值（overrides），请参考[在 Clusternet 中如何设置 Overrides](setting-overrides.md).
-在应用这些`Localization`之前，请
-修改[examples/replication-scheduling/localization.yaml](https://github.com/clusternet/clusternet/blob/main/examples/replication-scheduling/localization.yaml)
+如果你想设置一些覆盖值（overrides），请参考[在 Clusternet 中如何设置 Overrides](setting-overrides.md)。
+在应用这些`Localization`之前，请修改[examples/replication-scheduling/localization.yaml](https://github.com/clusternet/clusternet/blob/main/examples/replication-scheduling/localization.yaml)
 使用您的`ManagedCluster`命名空间，例如`clusternet-5l82l`。
 
 ## 应用你的应用程序
