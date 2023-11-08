@@ -1,7 +1,7 @@
 ---
 title: "Feature Gates"
 date: 2023-06-09
-weight: 4
+weight: 10
 description: "An overview of the various feature gates an administrator can specify on different Clusternet components."
 ---
 
