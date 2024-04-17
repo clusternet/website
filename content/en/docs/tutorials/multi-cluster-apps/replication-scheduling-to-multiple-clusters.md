@@ -52,7 +52,7 @@ with your clusterID.
 
 {{% alert title="Note" color="primary" %}}
 If you want to install a helm chart from a private helm repository, please set a valid `chartPullSecret` by referring
-[this example](../../deploy/templates/helm-chart-private-repo.yaml).
+[this example](https://github.com/clusternet/clusternet/blob/main/deploy/templates/helm-chart-private-repo.yaml).
 {{% /alert %}}
 
 Clusternet also supports using [OCI-based registries](https://helm.sh/docs/topics/registries/) for Helm charts. Please
