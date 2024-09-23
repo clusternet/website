@@ -1,98 +1,73 @@
 ---
-title: "Balance to Services Running across Child Clusters"
-description: "How to visit services running across child clusters"
-date: 2022-09-01
+title: "Balance to Services Running across Child Clusters With Fleetboard"
+description: "How to make cross-cluster access to services as simple as in local cluster."
+date: 2024-09-23
 draft: false
 weight: 1
 ---
 
-For services in child clusters, we can use service name to visit them locally from parent cluster.
+For services in child clusters, we can use service name to visit them locally from any child cluster.
 
 {{% alert title="Note" color="primary" %}}
-1. Make sure parent cluster can visit child clusters pod CIDR and each cluster must use distinct pod CIDRs 
-that don’t conflict or overlap with any other cluster.
-2. Make sure experimental feature `MultiClusterService` is enabled both on `clusternet-agent` and `clusternet-controler-manager`
-side. You can manually enable the feature by directly modifying with 
-`--feature-gates=xxx,MultiClusterService=true` of deployments `clusternet-controller-manager` and `clusternet-agent`.
+1. [Fleetboard](https://github.com/fleetboard-io/fleetboard) requires no public IP for child clusters and
+has no pre-limits of cluster IP CIDR or CNI types of kubernetes clusters.
+2. Please install ``FleetBoard`` first follow the [Fleetboard Helm Docs](https://fleetboard-io.github.io/fleetboard-charts/) you
+ should install ``fleetboard`` in `Hub` cluster and install ``fleetboard-agent`` in `Child` clusters.
+3. After the installation, add cross cluster DNS config segment in coredns configmap, and restart coredns pods. 
+The cluster-ip of crossdns is a static cluster IP, usually 10.96.0.11 , check before setting.
+```shell
+  fleetboard.local:53 {
+      forward . 10.96.0.11
+   }
+```
 {{% /alert %}}
 
 ## 1. Deploying applications to multiple clusters with various scheduling strategies
 
-Please follow [this example](../../multi-cluster-apps/replication-scheduling-to-multiple-clusters). to deploy applications to multiple clusters.
+Please follow [this example](../../multi-cluster-apps/replication-scheduling-to-multiple-clusters). to deploy demo
+applications to at least two child clusters.
 
 ```shell
 $ kubectl clusternet apply -f examples/scheduling-with-mcs-api/scheduling
 namespace/baz created
-deployment.apps/my-nginx created
-service/my-nginx-svc created
-serviceexport.multicluster.x-k8s.io/my-nginx-svc created
+deployment.apps/nginx-app created
+service/nginx-svc created
+serviceexport.multicluster.x-k8s.io/nginx-svc created
 subscription.apps.clusternet.io/scheduling-with-mcs-api created
 ```
 
-
-## 2. Deploying serviceimport in parent cluster
-Deploy serviceimport in parent cluster, specify which service you want to import in labels:
-```shell
-apiVersion: multicluster.x-k8s.io/v1alpha1
-kind: ServiceImport
-metadata:
-  name: my-svc
-  namespace: default
-  labels:
-    services.clusternet.io/multi-cluster-service-name: my-nginx-svc # must be same to the service name you want to expose
-    services.clusternet.io/multi-cluster-service-namespace: baz # must be same to the service namespace
-spec:
-  ips:
-    - 42.42.42.42
-  type: "ClusterSetIP"
-  ports:
-  - port: 80
-    protocol: TCP
-  sessionAffinity: None
-```
-```shell
-$ kubectl create -f examples/scheduling-with-mcs-api/service-import.yaml
-serviceimport.multicluster.x-k8s.io/my-svc created
-```
-## 3. Check service and endpointslice.
-Now we can check and verify the endpointslice and service auto derived by `clusternet` the service start with `derived-`:
+## 2. Testing service availability
+Now you can check and verify the endpointslices synced by ```Fleetboard``` and  the service deployed by ``clusternet`` before.
 
 ```shell
-root@worker-cluster1-1:~/clusternet# kubectl get svc 
-NAME                     TYPE           CLUSTER-IP      EXTERNAL-IP    PORT(S)        AGE
-derived-baz-tc8hmv632j   ClusterIP      10.11.178.229   <none>         80/TCP         1d
-kubernetes               ClusterIP      10.11.0.1       <none>         443/TCP        306d
-root@worker-cluster1-1:~/clusternet# kubectl get svc derived-baz-tc8hmv632j -o yaml
-apiVersion: v1
-kind: Service
-metadata:
-  creationTimestamp: "2022-09-01T07:42:31Z"
-  name: derived-baz-tc8hmv632j
-  namespace: default
-  resourceVersion: "100369299"
-  selfLink: /api/v1/namespaces/default/services/derived-baz-tc8hmv632j
-  uid: 91c19b02-c15b-4166-9bcc-6931d0859723
-spec:
-  clusterIP: 10.11.178.229
-  clusterIPs:
-  - 10.11.178.229
-  ipFamilies:
-  - IPv4
-  ipFamilyPolicy: SingleStack
-  ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 80
-  sessionAffinity: None
-  type: ClusterIP
-status:
-  loadBalancer:
-    ingress:
-    - ip: 42.42.42.42
-```
-And the endpointslice with label `kubernetes.io/service-name: derived-baz-tc8hmv632j` :
-```shell
-$ kubectl get endpointslice -l kubernetes.io/service-name=derived-baz-tc8hmv632j
-NAME                                      ADDRESSTYPE   PORTS   ENDPOINTS                                         AGE
-clusternet-s5cmf-baz-my-nginx-svc-4rg6x   IPv4          80      10.244.1.36,10.244.1.40,10.244.1.38 + 3 more...   10m
+$ kubectl get endpointslice -n syncer-operator
+NAME                               ADDRESSTYPE   PORTS   ENDPOINTS                          AGE
+cluster1-baz-nginx-svc-v5vw6   IPv4          80      20.112.0.3,20.112.1.5,20.112.1.4   36h
+$ kubectl exec -it nginx-app-9fb9fffdd-dsjxm -n baz -c alpine -- sh
+/ # curl nginx-svc.baz.svc.fleetboard.local
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
 ```
