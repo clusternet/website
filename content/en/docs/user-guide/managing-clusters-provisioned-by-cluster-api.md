@@ -8,7 +8,7 @@ collapsible: false
 ---
 
 The experimental
-feature [ClusterResourceSet](https://cluster-api.sigs.k8s.io/tasks/experimental-features/cluster-resource-set.html)
+feature [ClusterResourceSet](https://cluster-api.sigs.k8s.io/tasks/cluster-resource-set)
 in [Cluster API](https://github.com/kubernetes-sigs/cluster-api)
 allows users to automatically install additional components onto workload clusters when the workload clusters are
 provisioned. With the help of this, clusters provisioned
