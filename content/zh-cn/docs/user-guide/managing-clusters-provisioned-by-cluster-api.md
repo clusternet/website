@@ -7,7 +7,7 @@ weight: 2
 collapsible: false
 ---
 
-[Cluster API](https://github.com/kubernetes-sigs/cluster-api)项目中提供了一个实验性的功能 [ClusterResourceSet](https://cluster-api.sigs.k8s.io/tasks/experimental-features/cluster-resource-set.html)，该功能允许用户在工作集群创建完成之后，自动在工作集群中安装额外组件。 借助于此, Clusternet v0.12.0之后的版本可以自动发现由 [Cluster API](https://github.com/kubernetes-sigs/cluster-api)
+[Cluster API](https://github.com/kubernetes-sigs/cluster-api)项目中提供了一个实验性的功能 [ClusterResourceSet](https://cluster-api.sigs.k8s.io/tasks/cluster-resource-set)，该功能允许用户在工作集群创建完成之后，自动在工作集群中安装额外组件。 借助于此, Clusternet v0.12.0之后的版本可以自动发现由 [Cluster API](https://github.com/kubernetes-sigs/cluster-api)
 providers所创建的工作集群，并将其注册到Clusternet之中.
 
 概括来讲, 使用`ClusterResourceSet`功能自动化安装`clusternet-agent`大致包括以下步骤:
